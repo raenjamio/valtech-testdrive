@@ -1,9 +1,13 @@
 package com.raenjamio.valtech.testdrive.api.v1.domain;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -12,18 +16,15 @@ import lombok.Setter;
 
 /**
  * 
- * @author raenjamio
- * representacion del auto a testear en este caso es uno solo
+ * @author raenjamio representacion del auto a testear en este caso es uno solo
  */
-
 
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
-public class Car  {
-	
-	
+public class Car {
+
 	@Builder
 	public Car(Long id, String description, String brand) {
 		super();
@@ -35,8 +36,11 @@ public class Car  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String description;
-	
+
 	private String brand;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "car")
+	private Set<Reservation> reservations;
 }
