@@ -3,6 +3,7 @@ package com.raenjamio.valtech.testdrive.api.v1.criteria;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.raenjamio.valtech.testdrive.service.filter.LocalDateFilter;
 import com.raenjamio.valtech.testdrive.service.filter.LongFilter;
 import com.raenjamio.valtech.testdrive.service.filter.ZonedDateTimeFilter;
 
@@ -29,9 +30,9 @@ public class ReservationCriteria implements Serializable {
 
 	private LongFilter carId;
 
-	private ZonedDateTimeFilter dateArrival;
+	private LocalDateFilter dateArrival;
 	
-	private ZonedDateTimeFilter dateDeparture;
+	private LocalDateFilter dateDeparture;
 	
 
 	@Override

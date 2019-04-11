@@ -1,5 +1,6 @@
 package com.raenjamio.valtech.testdrive.api.v1.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -42,5 +45,10 @@ public class Car {
 	private String brand;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "car")
-	private Set<Reservation> reservations;
+	private Set<Reservation> reservations = new HashSet<>();
+	
+	public void addReservation(Reservation reservation) {
+		reservations.add(reservation);
+		reservation.setCar(this);
+	}
 }

@@ -38,8 +38,8 @@ public class CreateReservation {
 		}
 		log.debug("create reservation car {}", car);
 
-		reservationDTO.setCar(car);
 		reservationDTO.setDateArrival(reservationDTO.getDateDeparture().plusDays(1));
+		car.addReservation(reservationDTO, car.getId());
 		
 		return reservationService.createNew(reservationDTO);
 	}

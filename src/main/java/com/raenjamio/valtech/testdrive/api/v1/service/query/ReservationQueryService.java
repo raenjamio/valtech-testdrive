@@ -98,14 +98,14 @@ public class ReservationQueryService extends QueryService<Reservation> {
                 specification = specification.and(buildSpecification(criteria.getUserId(),
                     root -> root.join(Reservation_.user, JoinType.LEFT).get(User_.id)));
             }
-            
+            /*
             if (criteria.getDateArrival() != null) {
             	specification = specification.and(buildRangeSpecification(criteria.getDateArrival(), Reservation_.dateArrival));
             }
             if (criteria.getDateDeparture() != null) {
             	specification = specification.and(buildRangeSpecification(criteria.getDateDeparture(), Reservation_.dateDeparture));
             }
-            
+            */
         }
         return specification;
     }

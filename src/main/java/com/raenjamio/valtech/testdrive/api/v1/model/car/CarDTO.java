@@ -1,5 +1,6 @@
 package com.raenjamio.valtech.testdrive.api.v1.model.car;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
@@ -19,6 +20,11 @@ public class CarDTO {
 	
 	private String brand;
 	
-	private Set<ReservationDTO> reservations;
+	private Set<ReservationDTO> reservations = new HashSet<>();
+
+	public void addReservation(ReservationDTO reservationDTO, Long idCar) {
+		reservations.add(reservationDTO);
+		reservationDTO.setCarId(idCar);
+	}
 	
 }

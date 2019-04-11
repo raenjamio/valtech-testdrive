@@ -1,6 +1,6 @@
 package com.raenjamio.valtech.testdrive.api.v1.model.reservation;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 import com.raenjamio.valtech.testdrive.api.v1.model.car.CarDTO;
 
@@ -17,16 +17,16 @@ public class ReservationDTO {
 	
 	//private UserDTO user;
 	
-	private CarDTO car;
+	private Long carId;
 	
 	//@JsonFormat(pattern = "YYYY-MM-dd HH:mm")
 	//@JsonSerialize(using = CustomLocalDateTimeSerializer.class)
 	//@JsonDeserialize(using = CustomDateDeserializer.class)
-	private ZonedDateTime dateArrival;
+	private LocalDateTime dateArrival;
 	
 	//@JsonFormat(pattern = "YYYY-MM-dd HH:mm")
 	//@JsonSerialize(using = CustomLocalDateTimeSerializer.class)
 	//@JsonDeserialize(using = CustomDateDeserializer.class)
-	private ZonedDateTime dateDeparture;
+	private LocalDateTime dateDeparture;
 	
 }

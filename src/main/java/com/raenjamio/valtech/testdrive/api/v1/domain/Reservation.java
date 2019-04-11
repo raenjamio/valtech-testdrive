@@ -1,6 +1,6 @@
 package com.raenjamio.valtech.testdrive.api.v1.domain;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -31,7 +31,7 @@ public class Reservation  {
 	
 	
 	@Builder
-	public Reservation(Long id, User user, ZonedDateTime dateArrival, ZonedDateTime dateDeparture, Car car) {
+	public Reservation(Long id, User user, LocalDateTime dateArrival, LocalDateTime dateDeparture, Car car) {
 		super();
 		this.id = id;
 		this.user = user;
@@ -46,8 +46,8 @@ public class Reservation  {
 
 	private User user;
 	
-	private ZonedDateTime dateArrival;
-	private ZonedDateTime dateDeparture;
+	private LocalDateTime dateArrival;
+	private LocalDateTime dateDeparture;
 	
 	@ManyToOne
     @JoinColumn(name="car_id", nullable=false)
