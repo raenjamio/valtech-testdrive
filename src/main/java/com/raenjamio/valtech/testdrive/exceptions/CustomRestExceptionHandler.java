@@ -180,7 +180,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         }
 		return null;
     }
-    
+    /*
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<Object> handleAll(final Exception ex, final WebRequest request) {
         logger.info(ex.getClass().getName());
@@ -188,6 +188,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         //
         final ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(), "error occurred");
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
-    }
+    }*/
 
 }

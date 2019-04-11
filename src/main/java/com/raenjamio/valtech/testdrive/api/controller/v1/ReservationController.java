@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.raenjamio.valtech.testdrive.api.usecase.CreateReservation;
+import com.raenjamio.valtech.testdrive.api.usecase.reservation.CreateReservation;
 import com.raenjamio.valtech.testdrive.api.v1.criteria.ReservationCriteria;
 import com.raenjamio.valtech.testdrive.api.v1.model.reservation.PageReservation;
 import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
@@ -73,7 +73,7 @@ public class ReservationController {
 	}
 	
 	@PostMapping(CarController.BASE_URL + "/{idCar}/reservations")
-	@ResponseStatus(HttpStatus.OK)
+	@ResponseStatus(HttpStatus.CREATED)
 	public ReservationDTO reservationCar(@PathVariable Long idCar, @RequestBody ReservationDTO reservationDTO) {
 		log.debug("REST request to create reservation car: {}  reservationDTO {}", idCar, reservationDTO);
 		
