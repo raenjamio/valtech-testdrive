@@ -3,9 +3,11 @@ package com.raenjamio.valtech.testdrive.api.v1.criteria;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.classmate.Filter;
 import com.raenjamio.valtech.testdrive.service.filter.LocalDateFilter;
 import com.raenjamio.valtech.testdrive.service.filter.LongFilter;
-import com.raenjamio.valtech.testdrive.service.filter.ZonedDateTimeFilter;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,10 +31,6 @@ public class ReservationCriteria implements Serializable {
 	private LongFilter userId;
 
 	private LongFilter carId;
-
-	private LocalDateFilter dateArrival;
-	
-	private LocalDateFilter dateDeparture;
 	
 
 	@Override
@@ -45,21 +43,19 @@ public class ReservationCriteria implements Serializable {
 		}
 		final ReservationCriteria that = (ReservationCriteria) o;
 		return Objects.equals(id, that.id) && Objects.equals(userId, that.userId)
-				&& Objects.equals(carId, that.carId) && Objects.equals(dateArrival, that.dateArrival)
-				&& Objects.equals(dateDeparture, that.dateDeparture);
+				&& Objects.equals(carId, that.carId) ;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, userId, carId, dateArrival, dateDeparture);
+		return Objects.hash(id, userId, carId);
 	}
 
 	@Override
 	public String toString() {
 		return  "ReservationCriteria{" + (id != null ? "id=" + id + ", " : "")
 				+ (userId != null ? "userId=" + userId + ", " : "")
-				+ (carId != null ? "carId=" + carId + ", " : "")
-				+ (dateArrival != null ? "dateArrival=" + dateArrival + ", " : "") + "}";
+				+ (carId != null ? "carId=" + carId + ", " : "") + "}";
 	}
 
 }

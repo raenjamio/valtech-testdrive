@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.raenjamio.valtech.testdrive.api.usecase.reservation.CreateReservation;
 import com.raenjamio.valtech.testdrive.api.v1.domain.Reservation;
 import com.raenjamio.valtech.testdrive.api.v1.mapper.ReservationMapper;
 import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
@@ -21,31 +22,41 @@ public class ReservationServiceImpl implements ReservationService {
 
 	private final ReservationMapper reservationMapper;
 	private final ReservationRepository reservationRepository;
+	private final CreateReservation createReservation;
 
-	public ReservationServiceImpl(ReservationMapper reservationMapper, ReservationRepository reservationRepository) {
+	public ReservationServiceImpl(ReservationMapper reservationMapper, ReservationRepository reservationRepository,
+			CreateReservation createReservation) {
 		super();
 		this.reservationMapper = reservationMapper;
 		this.reservationRepository = reservationRepository;
+		this.createReservation = createReservation;
 	}
 
 	@Override
 	public ReservationDTO findById(Long id) {
 		log.debug("@findById id:" + id);
 		return reservationRepository.findById(id).map(x -> reservationMapper.toDto(x)).map(reservationDTO -> {
-			// set API URL
-			// customerDTO.setCustomerUrl(getCustomerUrl(id));
 			return reservationDTO;
 		}).orElseThrow(NotFoundException::new);
 	}
 
 	@Override
+	public ReservationDTO createNew(Long idCar, ReservationDTO reservationDTO) {
+		log.debug("@createNew reservation: " + reservationDTO);
+		reservationDTO.setCarId(idCar);
+		
+		return saveAndReturnDTO(reservationMapper.toEntity(createReservation.create(reservationDTO)));
+	}
+	
 	public ReservationDTO createNew(ReservationDTO reservationDTO) {
 		log.debug("@createNew reservation: " + reservationDTO);
-		return saveAndReturnDTO(reservationMapper.toEntity(reservationDTO));
+		
+		return saveAndReturnDTO(reservationMapper.toEntity(createReservation.create(reservationDTO)));
 	}
 
 	private ReservationDTO saveAndReturnDTO(Reservation reservation) {
 		log.debug("@saveAndReturnDTO reservation: " + reservation);
+		
 		Reservation savedReservation = reservationRepository.save(reservation);
 
 		ReservationDTO returnDto = reservationMapper.toDto(savedReservation);
@@ -57,7 +68,8 @@ public class ReservationServiceImpl implements ReservationService {
 	public ReservationDTO saveByDTO(Long id, ReservationDTO reservationDTO) {
 		log.debug("@saveByDTO reservation: " + reservationDTO);
 		log.debug("@saveByDTO id: " + id);
-		Reservation reservation = reservationMapper.toEntity(reservationDTO);
+		
+		Reservation reservation = reservationMapper.toEntity(createReservation.create(reservationDTO));
 		reservation.setId(id);
 		return saveAndReturnDTO(reservation);
 	}
@@ -67,6 +79,9 @@ public class ReservationServiceImpl implements ReservationService {
 		log.debug("@patch reservation: " + reservationDTO);
 		log.debug("@patch id: " + id);
 		return reservationRepository.findById(id).map(reservation -> {
+			if (reservationDTO.getState() != null) {
+				reservation.setState(reservationDTO.getState());
+			}
 
 			ReservationDTO returnDto = reservationMapper.toDto(reservationRepository.save(reservation));
 
@@ -78,7 +93,8 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public Set<ReservationDTO> findAll() {
 		log.debug("@getAll");
-		return reservationRepository.findAll().stream().map(x -> reservationMapper.toDto(x)).collect(Collectors.toSet());
+		return reservationRepository.findAll().stream().map(x -> reservationMapper.toDto(x))
+				.collect(Collectors.toSet());
 	}
 
 	@Override
@@ -99,4 +115,5 @@ public class ReservationServiceImpl implements ReservationService {
 		log.debug("@deleteById {}", id);
 		reservationRepository.deleteById(id);
 	}
+
 }

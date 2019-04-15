@@ -17,9 +17,10 @@ import com.raenjamio.valtech.testdrive.api.usecase.reservation.CreateReservation
 import com.raenjamio.valtech.testdrive.api.v1.criteria.ReservationCriteria;
 import com.raenjamio.valtech.testdrive.api.v1.model.reservation.PageReservation;
 import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
-import com.raenjamio.valtech.testdrive.api.v1.service.CarService;
 import com.raenjamio.valtech.testdrive.api.v1.service.ReservationService;
+import com.raenjamio.valtech.testdrive.api.v1.service.UserService;
 import com.raenjamio.valtech.testdrive.api.v1.service.query.ReservationQueryService;
+import com.raenjamio.valtech.testdrive.exceptions.BadRequestAlertException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,15 +33,13 @@ public class ReservationController {
 	
 	private final ReservationQueryService reservationQueryService;
 	private final ReservationService reservationService;
-	private final CreateReservation createReservation;
 	
 	
 	public ReservationController(ReservationQueryService reservationQueryService,
-			ReservationService reservationService, CreateReservation createReservation) {
+			ReservationService reservationService) {
 		super();
 		this.reservationQueryService = reservationQueryService;
 		this.reservationService = reservationService;
-		this.createReservation = createReservation;
 	}
 
 	@GetMapping(ReservationController.BASE_URL)
@@ -50,6 +49,13 @@ public class ReservationController {
 		Page<ReservationDTO> page = reservationQueryService.findByCriteria(criteria, pageable);
 		return new PageReservation(page);
 	}
+	
+	@GetMapping(ReservationController.BASE_URL + "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ReservationDTO getReservation(@PathVariable Long id){
+		log.debug("@getProfile id: " + id);
+        return reservationService.findById(id);
+    }
 	
 	@DeleteMapping( ReservationController.BASE_URL + "/{id}")
 	@ResponseStatus(HttpStatus.OK)
@@ -62,6 +68,9 @@ public class ReservationController {
 	@ResponseStatus(HttpStatus.OK)
 	public ReservationDTO update(@PathVariable Long id, @RequestBody ReservationDTO reservationDTO) {
 		log.debug("REST request to update reservation id: {} reservation {}", id, reservationDTO);
+		if (id == null) {
+			throw new BadRequestAlertException("Falta el id del recurso", "reservation", "id.null");
+		}
 		return reservationService.saveByDTO(id, reservationDTO);
 	}
 
@@ -77,7 +86,16 @@ public class ReservationController {
 	public ReservationDTO reservationCar(@PathVariable Long idCar, @RequestBody ReservationDTO reservationDTO) {
 		log.debug("REST request to create reservation car: {}  reservationDTO {}", idCar, reservationDTO);
 		
-		return createReservation.create(idCar, reservationDTO);
+		return reservationService.createNew(idCar, reservationDTO);
+		
+	}
+	
+	@PostMapping(ReservationController.BASE_URL)
+	@ResponseStatus(HttpStatus.CREATED)
+	public ReservationDTO reservationCar2(@RequestBody ReservationDTO reservationDTO) {
+		log.debug("REST request to create reservation car: {}  reservationDTO {}", 1L, reservationDTO);
+		
+		return reservationService.createNew(reservationDTO);
 		
 	}
 

@@ -1,19 +1,21 @@
 package com.raenjamio.valtech.testdrive.api.usecase.reservation;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.management.RuntimeErrorException;
-import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.raenjamio.valtech.testdrive.api.v1.domain.ReservationState;
 import com.raenjamio.valtech.testdrive.api.v1.model.car.CarDTO;
 import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
+import com.raenjamio.valtech.testdrive.api.v1.model.user.UserDTO;
 import com.raenjamio.valtech.testdrive.api.v1.service.CarService;
-import com.raenjamio.valtech.testdrive.api.v1.service.ReservationService;
+import com.raenjamio.valtech.testdrive.api.v1.service.UserService;
+import com.raenjamio.valtech.testdrive.exceptions.BadRequestAlertException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CreateReservation {
 	
 	private final CarService carService;
-	private final ReservationService reservationService;
+	private final UserService userService;
 	
 	@Value("${reservation.hourDeparture}")
 	private int hourDeparture;
@@ -46,22 +48,48 @@ public class CreateReservation {
 	@Value("${reservation.maxDayReservation}")
 	private int maxDayReservation;
 	
-	public CreateReservation(CarService carService, ReservationService reservationService) {
+	@Value("${reservation.minWeekReservation}")
+	private int minWeekReservation;
+	
+	@Value("${reservation.maxMonthReservation}")
+	private int maxMonthReservation;
+	
+	@Value("${reservation.price}")
+	private  BigDecimal priceReservation;
+	
+	public CreateReservation(CarService carService, UserService userService) {
 		super();
 		this.carService = carService;
-		this.reservationService = reservationService;
+		this.userService = userService;
 	}
 
-	public ReservationDTO create(Long idCar, ReservationDTO reservationDTO) {
+	public synchronized ReservationDTO create(ReservationDTO reservationDTO) {
 		log.debug("create reservation");
 
-		CarDTO car = carService.findById(idCar);
+		CarDTO car = carService.findById(reservationDTO.getCarId());
 		
 		if (car == null ) {
-			throw new RuntimeErrorException(null, " No existe un auto para reservar ");
+			throw new BadRequestAlertException(" No existe un auto para reservar ","reservation", "car.id");
+		}
+		if (reservationDTO.getDateDeparture() == null) {
+			throw new BadRequestAlertException(" Falta la fecha de reserva (dateDeparture)", "reservation", "dateDeparture");
 		}
 		
+		if (reservationDTO.getName() == null || reservationDTO.getLastName() == null) {
+			throw new BadRequestAlertException(" El nombre y el apellido son obligatirios", "client", "name");
+		}
 		
+		Optional<UserDTO> user = userService.findByNameAndLastNameEquals(reservationDTO.getName(), reservationDTO.getLastName());
+		
+		// si el usuario no existe lo creo
+		if (!user.isPresent()) {
+			UserDTO userDTO = new UserDTO(reservationDTO.getName(), reservationDTO.getLastName(), reservationDTO.getEmail());
+			userDTO = userService.createNew(userDTO);
+			reservationDTO.setUserId(userDTO.getId());
+		} else {
+			reservationDTO.setUserId(user.get().getId());
+		}
+			
 		
 		log.debug("create reservation car {}", car);
 
@@ -72,34 +100,36 @@ public class CreateReservation {
 		LocalDateTime dateArrivalCalculed = dateDepartureCalculed.plusDays(maxDayReservation).withHour(hourArrival).withMinute(minuteArrival);
 		
 		reservationDTO.setDateArrival(dateArrivalCalculed);
+		reservationDTO.setPrice(priceReservation);
 		
 		Set<ReservationDTO> reservationFilteredByDates = car.getReservations().stream()
 			.filter(reservation -> reservation.getDateArrival().isAfter(reservationDTO.getDateDeparture()))
 			.filter(reservation -> reservation.getDateDeparture().isBefore(reservationDTO.getDateArrival()))
+			.filter(reservation -> ReservationState.CREATED.equals(reservation.getState()))
 			.collect(Collectors.toSet());
 		
 		//si existe una reserva dentro del periodo no se puede realizar la reserva
-		if (!reservationFilteredByDates.isEmpty()) {
+		if (!reservationFilteredByDates.isEmpty() && !reservationFilteredByDates.contains(reservationDTO)) {
 			//throw new BadRequestAlertException("Existe una reserva en el periodo indicado", "reservations", ErrorConstants.ERR_VALIDATION);
-			throw new RuntimeErrorException(null, "Existe una reserva en el periodo indicado");
+			throw new BadRequestAlertException("Existe una reserva en el periodo indicado", "reservation", "dateDeparture");
 		}
 		//validamos fecha maxima y minima de reserva
-		LocalDateTime dateMinReservation = LocalDateTime.now().minusWeeks(-1);
-		LocalDateTime dateMaxReservation = LocalDateTime.now().minusMonths(-1);
+		LocalDateTime dateMinReservation = LocalDateTime.now().minusWeeks(minWeekReservation);
+		LocalDateTime dateMaxReservation = LocalDateTime.now().minusMonths(maxMonthReservation);
 		
 		if (reservationDTO.getDateDeparture().isBefore(dateMinReservation)) {
-			throw new RuntimeErrorException(null, "La fecha de reserva es menor a la fecha minima de reserva " + dateMinReservation);
+			throw new BadRequestAlertException("La fecha de reserva es menor a la fecha minima de reserva " + dateMinReservation, "reservation", "dateDeparture");
 		}
 		
 		if (reservationDTO.getDateDeparture().isAfter(dateMaxReservation)) {
-			throw new RuntimeErrorException(null, "La fecha de reserva es mayor a la fecha maxima de reserva " + dateMaxReservation);
+			throw new BadRequestAlertException("La fecha de reserva es mayor a la fecha maxima de reserva " + dateMaxReservation, "reservation", "dateDeparture");
 		}
 		
 		car.addReservation(reservationDTO, car.getId());
 		
 
 		
-		return reservationService.createNew(reservationDTO);
+		return reservationDTO;
 	}
 
 	

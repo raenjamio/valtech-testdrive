@@ -5,10 +5,12 @@ import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
 public interface ReservationService extends CrudService<ReservationDTO, Long>{
 
 
-	ReservationDTO createNew(ReservationDTO userDTO);
+	ReservationDTO createNew(Long idCar, ReservationDTO reservationDTO);
 	
-	ReservationDTO saveByDTO(Long id, ReservationDTO userDTO);
+	ReservationDTO saveByDTO(Long id, ReservationDTO reservationDTO);
 
-	ReservationDTO patch(Long id, ReservationDTO userDTO);
+	ReservationDTO patch(Long id, ReservationDTO reservationDTO);
+
+	ReservationDTO createNew(ReservationDTO reservationDTO);
 
 }

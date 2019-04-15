@@ -16,10 +16,22 @@ import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
 public interface ReservationMapper {//extends EntityMapper<ReservationDTO, Reservation> {
 	ReservationMapper INSTANCE = Mappers.getMapper(ReservationMapper.class);
 
-	@Mapping(source = "carId", target = "car.id")
+	@Mappings({
+		@Mapping(source = "carId", target = "car.id"),
+		@Mapping(source = "userId", target = "user.id"),
+		@Mapping(source = "lastName", target = "user.lastName"),
+		@Mapping(source = "name", target = "user.name"),
+		@Mapping(source = "email", target = "user.email")
+	})
 	Reservation toEntity(ReservationDTO dto);
 
-	@Mapping(source = "car.id", target = "carId")
+	@Mappings({
+		@Mapping(source = "car.id", target = "carId"),
+		@Mapping(source = "user.id", target = "userId"),
+		@Mapping(source = "user.name", target = "name"),
+		@Mapping(source = "user.lastName", target = "lastName"),
+		@Mapping(source = "user.email", target = "email")
+	})
 	ReservationDTO toDto(Reservation entity);
 
 	List<Reservation> toEntity(List<ReservationDTO> dtoList);
