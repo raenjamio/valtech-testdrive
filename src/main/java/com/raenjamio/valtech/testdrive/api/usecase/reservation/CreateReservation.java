@@ -86,8 +86,14 @@ public class CreateReservation {
 			UserDTO userDTO = new UserDTO(reservationDTO.getName(), reservationDTO.getLastName(), reservationDTO.getEmail());
 			userDTO = userService.createNew(userDTO);
 			reservationDTO.setUserId(userDTO.getId());
+			reservationDTO.setName(userDTO.getName());
+			reservationDTO.setLastName(userDTO.getLastName());
+			reservationDTO.setEmail(userDTO.getEmail());
 		} else {
 			reservationDTO.setUserId(user.get().getId());
+			reservationDTO.setName(user.get().getName());
+			reservationDTO.setLastName(user.get().getLastName());
+			reservationDTO.setEmail(user.get().getEmail());
 		}
 			
 		
@@ -102,11 +108,7 @@ public class CreateReservation {
 		reservationDTO.setDateArrival(dateArrivalCalculed);
 		reservationDTO.setPrice(priceReservation);
 		
-		Set<ReservationDTO> reservationFilteredByDates = car.getReservations().stream()
-			.filter(reservation -> reservation.getDateArrival().isAfter(reservationDTO.getDateDeparture()))
-			.filter(reservation -> reservation.getDateDeparture().isBefore(reservationDTO.getDateArrival()))
-			.filter(reservation -> ReservationState.CREATED.equals(reservation.getState()))
-			.collect(Collectors.toSet());
+		Set<ReservationDTO> reservationFilteredByDates = getReservationsByCarFiltered(reservationDTO, car);
 		
 		//si existe una reserva dentro del periodo no se puede realizar la reserva
 		if (!reservationFilteredByDates.isEmpty() && !reservationFilteredByDates.contains(reservationDTO)) {
@@ -130,6 +132,14 @@ public class CreateReservation {
 
 		
 		return reservationDTO;
+	}
+
+	private Set<ReservationDTO> getReservationsByCarFiltered(ReservationDTO reservationDTO, CarDTO car) {
+		return car.getReservations().stream()
+			.filter(reservation -> reservation.getDateArrival().isAfter(reservationDTO.getDateDeparture()))
+			.filter(reservation -> reservation.getDateDeparture().isBefore(reservationDTO.getDateArrival()))
+			.filter(reservation -> ReservationState.CREATED.equals(reservation.getState()))
+			.collect(Collectors.toSet());
 	}
 
 	
