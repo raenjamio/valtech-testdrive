@@ -32,4 +32,5 @@ public class AvailableDTO {
 	
 	private String reservationUrl;
 	
+		
 }

@@ -40,21 +40,16 @@ import lombok.extern.slf4j.Slf4j;
 public class GetAvailavility {
 
 	private final CarService carService;
-	private final ReservationService reservationService;
-	private final ReservationQueryService reservationQueryService;
 
 	@Value("${reservation.hourDeparture}")
 	private int hourDeparture;
 
-	public GetAvailavility(CarService carService, ReservationService reservationService,
-			ReservationQueryService reservationQueryService) {
+	public GetAvailavility(CarService carService) {
 		super();
 		this.carService = carService;
-		this.reservationService = reservationService;
-		this.reservationQueryService = reservationQueryService;
 	}
 
-	public PageAvailable get(Long idCar, String dateDeparture, String dateArrival) {
+	public PageAvailable get(Long idCar, String dateStart, String dateEnd) {
 		log.debug("get availavility idcar {}", idCar);
 
 		LocalDate startDate = null;
@@ -62,16 +57,16 @@ public class GetAvailavility {
 
 		DateTimeFormatter dateTimeFormat = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd").toFormatter();
 
-		if (dateDeparture != null) {
-			startDate = dateTimeFormat.parse(dateDeparture, LocalDate::from);
+		if (dateStart != null) {
+			startDate = dateTimeFormat.parse(dateStart, LocalDate::from);
 		} else {
 			startDate = LocalDate.now();
 		}
 
 		// si no se filtra por fecha hasta se pone por default 3 meses desde la fecha
 		// desde
-		if (dateArrival != null) {
-			endDate = dateTimeFormat.parse(dateArrival, LocalDate::from);
+		if (dateEnd != null) {
+			endDate = dateTimeFormat.parse(dateEnd, LocalDate::from);
 		} else {
 			endDate = startDate.plusMonths(3);
 		}

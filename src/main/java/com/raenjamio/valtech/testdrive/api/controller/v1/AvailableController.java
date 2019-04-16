@@ -36,12 +36,12 @@ public class AvailableController {
 	@GetMapping(CarController.BASE_URL + "/{idCar}/available")
 	@ResponseStatus(HttpStatus.OK)
 	public PageAvailable getAll(@PathVariable Long idCar,
-			@RequestParam(value = "dateDeparture", required = false) String dateDeparture,
-			@RequestParam(value = "dateArrival", required = false) String dateArrival) {// (@PathVariable Long idCar, ReservationCriteria criteria, Pageable pageable) {
+			@RequestParam(value = "dateStart", required = false) String dateStart,
+			@RequestParam(value = "dateEnd", required = false) String dateEnd) {// (@PathVariable Long idCar, ReservationCriteria criteria, Pageable pageable) {
 		
-		log.debug("REST request to get reservations by idCar: {} dateDeparture: {} dateArrival: {}", idCar, dateDeparture, dateArrival);
+		log.debug("REST request to get reservations by idCar: {} dateDeparture: {} dateArrival: {}", idCar, dateStart, dateEnd);
 
-		return availavilityUseCase.get(idCar, dateDeparture, dateArrival);
+		return availavilityUseCase.get(idCar, dateStart, dateEnd);
 	}
 
 }
