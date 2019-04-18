@@ -17,7 +17,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<jacoco.version>0.7.5.201505241946</jacoco.version>
+		<jacoco.version>0.8.2</jacoco.version>
 		<org.mapstruct.version>1.2.0.CR2</org.mapstruct.version>
 		<sentry.version>1.7.16</sentry.version>
 		<springfox-swagger.version>2.8.0</springfox-swagger.version>
