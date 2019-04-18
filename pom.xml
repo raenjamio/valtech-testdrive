@@ -181,6 +181,13 @@
 							<outputDirectory>${project.build.directory}/${project.name}-jacoco-ut</outputDirectory>
 						</configuration>
 					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
 				</executions>
 				<configuration>
 					<systemPropertyVariables>
