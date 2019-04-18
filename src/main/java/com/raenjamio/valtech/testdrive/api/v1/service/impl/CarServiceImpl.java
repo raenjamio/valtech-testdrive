@@ -67,6 +67,14 @@ public class CarServiceImpl implements CarService {
 		log.debug("@patch car: " + carDTO);
 		log.debug("@patch id: " + id);
 		return carRepository.findById(id).map(car -> {
+			
+			if (carDTO.getBrand() != null) {
+				car.setBrand(carDTO.getBrand());
+			}
+			
+			if (carDTO.getDescription() != null) {
+				car.setDescription(carDTO.getDescription());
+			}
 
 			CarDTO returnDto = carMapper.toDto(carRepository.save(car));
 

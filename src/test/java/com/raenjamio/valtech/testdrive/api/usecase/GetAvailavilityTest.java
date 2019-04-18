@@ -160,7 +160,32 @@ public class GetAvailavilityTest {
 		assertEquals(datesAvailables.getData().get(datesAvailables.getData().size() - 1).getDateDeparture(),
 				DATE_START.plusMonths(3));
 		assertFalse(exist);
+		  
+
+	}
+	
+	@Rule
+	public ExpectedException exceptionRule = ExpectedException.none();
+	
+	/**
+	 * Test para verificar que se validan las fechas desde y hasta
+	 * 
+	 * @throws Exception
+	 */
+
+	
+	@Test // (expected = BadRequestAlertException.class)
+	public void get_availavility_wrong_dates() throws Exception {
 		
+		CarDTO mockCar = mock(CarDTO.class);
+
+		exceptionRule.expect(BadRequestAlertException.class);
+		exceptionRule.expectMessage("La fecha hasta es menor a la fecha desde");
+
+		when(carService.findById(anyLong())).thenReturn(mockCar);
+
+		// when
+		getAvailavility.get(car.getId(), dateEndFilter, dateStartFilter);
 
 	}
 

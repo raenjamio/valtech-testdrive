@@ -21,15 +21,10 @@ public class AvailableController {
 
 	public static final String BASE_URL = "/api/v1/available";
 
-	private final ReservationQueryService reservationQueryService;
-	private final ReservationService reservationService;
 	private final GetAvailavility availavilityUseCase;
 
-	public AvailableController(ReservationQueryService reservationQueryService, ReservationService reservationService,
-			GetAvailavility availavilityUseCase) {
+	public AvailableController(GetAvailavility availavilityUseCase) {
 		super();
-		this.reservationQueryService = reservationQueryService;
-		this.reservationService = reservationService;
 		this.availavilityUseCase = availavilityUseCase;
 	}
 

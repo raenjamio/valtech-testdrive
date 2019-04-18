@@ -23,6 +23,7 @@ import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
 import com.raenjamio.valtech.testdrive.api.v1.service.CarService;
 import com.raenjamio.valtech.testdrive.api.v1.service.ReservationService;
 import com.raenjamio.valtech.testdrive.api.v1.service.query.ReservationQueryService;
+import com.raenjamio.valtech.testdrive.exceptions.BadRequestAlertException;
 import com.raenjamio.valtech.testdrive.util.DateRange;
 
 import lombok.extern.slf4j.Slf4j;
@@ -72,8 +73,8 @@ public class GetAvailavility {
 		}
 
 		if (!startDate.isBefore(endDate)) {
-			throw new RuntimeErrorException(null,
-					"La fecha hasta es menor a la fecha desde" + startDate + " --- " + endDate);
+			throw new BadRequestAlertException(
+					"La fecha hasta es menor a la fecha desde" + startDate + " --- " + endDate, "availavility", "date");
 		}
 
 		CarDTO car = carService.findById(idCar);
@@ -82,10 +83,12 @@ public class GetAvailavility {
 				.filter(reservation -> ReservationState.CREATED.equals(reservation.getState()))
 				.map(ReservationDTO::getDateDeparture).map(LocalDateTime::toLocalDate).collect(Collectors.toSet());
 
-
 		DateRange dateRange = new DateRange(startDate, endDate);
-		/*dateRange.stream().filter(x -> !datesReserved.contains(x)).collect(Collectors.toList())
-				.forEach(System.out::println);*/
+		/*
+		 * dateRange.stream().filter(x ->
+		 * !datesReserved.contains(x)).collect(Collectors.toList())
+		 * .forEach(System.out::println);
+		 */
 
 		List<AvailableDTO> availabilities = buildAvailabilities(dateRange, car.getId(), datesReserved);
 
@@ -96,8 +99,7 @@ public class GetAvailavility {
 		// Stream.iterate(new AvailableDTO(), d ->
 		// d.se).limit(ChronoUnit.DAYS.between(startDate, endDate) + 1);
 
-		return dateRange.stream()
-				.filter(x -> !datesReserved.contains(x))
+		return dateRange.stream().filter(x -> !datesReserved.contains(x))
 				.map(dateDeparture -> new AvailableDTO(carId, dateDeparture, dateDeparture))
 				.collect(Collectors.toList());
 	}

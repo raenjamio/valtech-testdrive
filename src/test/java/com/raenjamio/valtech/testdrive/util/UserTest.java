@@ -7,8 +7,9 @@ public class UserTest {
 	
 	
 
-	public static final String DESCRIPTION = "descriptions";
-	public static final String BRAND = "aaaaa";
+	public static final String NAME = "name";
+	public static final String LAST_NAME = "lastname";
+	public static final String EMAIL = "email";
 	public static final long ID = 1L;
 
 	
@@ -16,18 +17,18 @@ public class UserTest {
 	
 	public static User buildUserTest(long l) {
 		User user = new User();
-		user.setName("name");
-		user.setLastName("lastName");
-		user.setEmail("email");
+		user.setName(NAME);
+		user.setLastName(LAST_NAME);
+		user.setEmail(EMAIL);
 		user.setId(l);
 		return user;
 	}
 	
 	public static UserDTO builUserDTOTest(Long id) {
 		UserDTO userDTO = new UserDTO();
-		userDTO.setName("name");
-		userDTO.setLastName("lastName");
-		userDTO.setEmail("email");
+		userDTO.setName(NAME);
+		userDTO.setLastName(LAST_NAME);
+		userDTO.setEmail(EMAIL);
 		userDTO.setId(id);
 		return userDTO;
 	}

@@ -67,6 +67,18 @@ public class UserServiceImpl implements UserService {
 		log.debug("@patch user: " + userDTO);
 		log.debug("@patch id: " + id);
 		return userRepository.findById(id).map(user -> {
+			
+			if (userDTO.getName() != null) {
+				user.setName(userDTO.getName());
+			}
+			
+			if (userDTO.getLastName() != null) {
+				user.setLastName(userDTO.getLastName());
+			}
+			
+			if (userDTO.getEmail() != null) {
+				user.setEmail(userDTO.getEmail());
+			}
 
 			UserDTO returnDto = userMapper.toDto(userRepository.save(user));
 
