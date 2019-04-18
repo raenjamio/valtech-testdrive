@@ -15,6 +15,7 @@ import com.raenjamio.valtech.testdrive.api.v1.mapper.UserMapper;
 import com.raenjamio.valtech.testdrive.api.v1.model.user.UserDTO;
 import com.raenjamio.valtech.testdrive.api.v1.repository.UserRepository;
 
+import io.github.jhipster.service.QueryService;
 import lombok.extern.slf4j.Slf4j;
 
 /**

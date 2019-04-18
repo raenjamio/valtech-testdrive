@@ -3,8 +3,9 @@ package com.raenjamio.valtech.testdrive.api.v1.criteria;
 import java.io.Serializable;
 import java.util.Objects;
 
-import com.raenjamio.valtech.testdrive.service.filter.LongFilter;
 
+import io.github.jhipster.service.filter.Filter;
+import io.github.jhipster.service.filter.LongFilter;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -15,6 +15,7 @@ import com.raenjamio.valtech.testdrive.api.v1.mapper.CarMapper;
 import com.raenjamio.valtech.testdrive.api.v1.model.car.CarDTO;
 import com.raenjamio.valtech.testdrive.api.v1.repository.CarRepository;
 
+import io.github.jhipster.service.QueryService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -82,22 +83,8 @@ public class CarQueryService extends QueryService<Car> {
         Specification<Car> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildSpecification(criteria.getId(), Car_.id));
+            	specification = specification.and(buildSpecification(criteria.getId(), Car_.id));
             }
-            /*
-            if (criteria.getCreatedById() != null) {	
-                specification = specification.and(buildSpecification(criteria.getCreatedById(),
-                    root -> root.join(Car_.createdBy, JoinType.LEFT).get(Profile_.id)));
-            }
-            if (criteria.getTypeId()!= null) {
-                specification = specification.and(buildSpecification(criteria.getTypeId(),
-                    root -> root.join(Car_.type, JoinType.LEFT).get(CarType_.id)));
-            }
-            
-            if (criteria.getStartDate() != null) {
-            	specification = specification.and(buildRangeSpecification(criteria.getStartDate(), Car_.startDate));
-            }
-            */
         }
         return specification;
     }

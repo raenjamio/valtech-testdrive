@@ -3,12 +3,10 @@ package com.raenjamio.valtech.testdrive.api.v1.criteria;
 import java.io.Serializable;
 import java.util.Objects;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.classmate.Filter;
-import com.raenjamio.valtech.testdrive.service.filter.LocalDateFilter;
-import com.raenjamio.valtech.testdrive.service.filter.LongFilter;
 
+import io.github.jhipster.service.filter.LocalDateFilter;
+import io.github.jhipster.service.filter.LongFilter;
 import lombok.Getter;
 import lombok.Setter;
 

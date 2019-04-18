@@ -141,6 +141,15 @@
 			<artifactId>sentry-logback</artifactId>
 			<version>${sentry.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>io.github.jhipster</groupId>
+			<artifactId>jhipster-framework</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -173,14 +182,9 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-						<!--
-						<configuration>
-
-							<dataFile>${project.build.directory}/jacoco.exec</dataFile>
-							
-							<outputDirectory>${project.build.directory}/${project.name}-jacoco-ut</outputDirectory>
-						</configuration>
-						 Sets the output directory for the code coverage report. -->
+						<!-- <configuration> <dataFile>${project.build.directory}/jacoco.exec</dataFile> 
+							<outputDirectory>${project.build.directory}/${project.name}-jacoco-ut</outputDirectory> 
+							</configuration> Sets the output directory for the code coverage report. -->
 					</execution>
 				</executions>
 				<configuration>
