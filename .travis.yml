@@ -5,7 +5,7 @@ env:
  global:
    #- CODECOV_TOKEN=:"b2c21a83-68b1-447c-86a5-a7ca6a44b86c"
    - CODECOV_TOKEN=:"b2c21a83-68b1-447c-86a5-a7ca6a44b86c"
-   - CODACY_PROJECT_TOKEN=:"2673ac5373bd4f13aa403e4389862abc"
+   - CODACY_PROJECT_TOKEN="2673ac5373bd4f13aa403e4389862abc"
 cache:
   directories:
   - $HOME/.m2
