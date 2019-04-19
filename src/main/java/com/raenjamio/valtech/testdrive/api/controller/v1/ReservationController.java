@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.raenjamio.valtech.testdrive.api.usecase.reservation.CreateReservation;
 import com.raenjamio.valtech.testdrive.api.v1.criteria.ReservationCriteria;
 import com.raenjamio.valtech.testdrive.api.v1.model.reservation.PageReservation;
 import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
 import com.raenjamio.valtech.testdrive.api.v1.service.ReservationService;
-import com.raenjamio.valtech.testdrive.api.v1.service.UserService;
 import com.raenjamio.valtech.testdrive.api.v1.service.query.ReservationQueryService;
 import com.raenjamio.valtech.testdrive.exceptions.BadRequestAlertException;
 

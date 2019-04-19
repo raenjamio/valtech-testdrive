@@ -65,18 +65,6 @@ public class CarQueryService extends QueryService<Car> {
     }
 
     /**
-     * Return the number of matching entities in the database
-     * @param criteria The object which holds all the filters, which the entities should match.
-     * @return the number of matching entities.
-     */
-    @Transactional(readOnly = true)
-    public long countByCriteria(CarCriteria criteria) {
-        log.debug("count by criteria : {}", criteria);
-        final Specification<Car> specification = createSpecification(criteria);
-        return carRepository.count(specification);
-    }
-
-    /**
      * Function to convert CarCriteria to a {@link Specification}
      */
     private Specification<Car> createSpecification(CarCriteria criteria) {

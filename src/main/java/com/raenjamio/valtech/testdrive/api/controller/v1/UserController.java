@@ -75,6 +75,11 @@ public class UserController {
         return userService.createNew(userDTO);
     }
 	
-	 
+	@GetMapping({"/{id}"})
+    @ResponseStatus(HttpStatus.OK)
+    public UserDTO getUser(@PathVariable Long id){
+		log.debug("@getUser id: " + id);
+        return userService.findById(id);
+    } 
 
 }

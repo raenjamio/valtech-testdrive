@@ -76,5 +76,12 @@ public class CarController {
         return carService.createNew(carDTO);
     }
 	
+	@GetMapping({"/{id}"})
+    @ResponseStatus(HttpStatus.OK)
+    public CarDTO getCar(@PathVariable Long id){
+		log.debug("@getProfile id: " + id);
+        return carService.findById(id);
+    }
+	
 
 }

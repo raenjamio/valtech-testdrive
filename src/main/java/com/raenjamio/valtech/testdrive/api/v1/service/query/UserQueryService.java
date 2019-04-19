@@ -64,17 +64,6 @@ public class UserQueryService extends QueryService<User> {
             .map(userMapper::toDto);
     }
 
-    /**
-     * Return the number of matching entities in the database
-     * @param criteria The object which holds all the filters, which the entities should match.
-     * @return the number of matching entities.
-     */
-    @Transactional(readOnly = true)
-    public long countByCriteria(UserCriteria criteria) {
-        log.debug("count by criteria : {}", criteria);
-        final Specification<User> specification = createSpecification(criteria);
-        return userRepository.count(specification);
-    }
 
     /**
      * Function to convert UserCriteria to a {@link Specification}
@@ -85,20 +74,18 @@ public class UserQueryService extends QueryService<User> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildSpecification(criteria.getId(), User_.id));
             }
-            /*
-            if (criteria.getCreatedById() != null) {	
-                specification = specification.and(buildSpecification(criteria.getCreatedById(),
-                    root -> root.join(User_.createdBy, JoinType.LEFT).get(Profile_.id)));
-            }
-            if (criteria.getTypeId()!= null) {
-                specification = specification.and(buildSpecification(criteria.getTypeId(),
-                    root -> root.join(User_.type, JoinType.LEFT).get(UserType_.id)));
+            
+            if (criteria.getName() != null) {	
+                specification = specification.and(buildStringSpecification(criteria.getName(), User_.name));
             }
             
-            if (criteria.getStartDate() != null) {
-            	specification = specification.and(buildRangeSpecification(criteria.getStartDate(), User_.startDate));
+            if (criteria.getLastName() != null) {	
+                specification = specification.and(buildStringSpecification(criteria.getLastName(), User_.lastName));
             }
-            */
+            if (criteria.getEmail() != null) {	
+                specification = specification.and(buildStringSpecification(criteria.getEmail(), User_.email));
+            }
+            
         }
         return specification;
     }

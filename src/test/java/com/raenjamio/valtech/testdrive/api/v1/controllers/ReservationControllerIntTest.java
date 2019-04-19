@@ -245,6 +245,20 @@ public class ReservationControllerIntTest {
         // Get all the reservationList where marca equals to UPDATED_MARCA
         defaultReservationShouldNotBeFound("userId.equals=" + 100);
     }
+    
+    @Test
+    @Transactional
+    public void getAllReservationsByCarIdIsEqualToSomething() throws Exception {
+        // Initialize the database
+    	userRepository.saveAndFlush(reservation.getUser());
+        reservationRepository.saveAndFlush(reservation);
+
+        // Get all the reservationList where marca equals to DEFAULT_MARCA
+        defaultReservationShouldBeFound("carId.equals=" + reservation.getCar().getId());
+
+        // Get all the reservationList where marca equals to UPDATED_MARCA
+        defaultReservationShouldNotBeFound("carId.equals=" + 100);
+    }
 
     @Test
     @Transactional
