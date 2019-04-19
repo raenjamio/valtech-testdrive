@@ -13,7 +13,7 @@
 	<artifactId>test-drive</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>test-drive</name>
-	<description>Demo project for Spring Boot</description>
+	<description>test-drive for Valtech</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -21,6 +21,8 @@
 		<org.mapstruct.version>1.2.0.CR2</org.mapstruct.version>
 		<sentry.version>1.7.16</sentry.version>
 		<springfox-swagger.version>2.8.0</springfox-swagger.version>
+		<docker.image.prefix>raenjamio</docker.image.prefix>
+		<docker.plugin.version>0.3.258</docker.plugin.version>
 	</properties>
 
 	<dependencies>
@@ -76,7 +78,6 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.13</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -149,6 +150,11 @@
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>27.1-jre</version>
 		</dependency>
 	</dependencies>
 
@@ -242,6 +248,30 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${docker.plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+					<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

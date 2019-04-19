@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.raenjamio.valtech.testdrive.api.v1.domain.Car;
 import com.raenjamio.valtech.testdrive.api.v1.repository.CarRepository;
 
+import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.utility.RandomString;
 
 /**
@@ -22,7 +23,8 @@ import net.bytebuddy.utility.RandomString;
  */
 
 @Component
-@org.springframework.context.annotation.Profile({"default", "dev" })
+@org.springframework.context.annotation.Profile({"default", "dev", "prod" })
+@Slf4j
 public class Bootstrap implements CommandLineRunner {
 
 	private final CarRepository carRepository;
@@ -37,11 +39,13 @@ public class Bootstrap implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		log.info("Inicializamos la base");
 		// List<Profile> profiles = loadProfiles();
 		saveCars();
 	}
 	
 	private void saveCars() {
+		log.info("gurdamos un auto");
 		carRepository.save(car1);
 	}
 }

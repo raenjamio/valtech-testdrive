@@ -27,3 +27,9 @@ HELP.md
 
 ### VS Code ###
 .vscode/
+
+
+logs/archived/
+
+##docker##
+mysqldata/
