@@ -10,7 +10,6 @@ import com.raenjamio.valtech.testdrive.api.controller.v1.CarController;
 import com.raenjamio.valtech.testdrive.util.CustomDateDeserializer;
 import com.raenjamio.valtech.testdrive.util.CustomLocalDateTimeSerializer;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +17,6 @@ import lombok.Setter;
 @Setter
 @Getter 
 @NoArgsConstructor
-@AllArgsConstructor
 public class AvailableDTO {
 	
 	public AvailableDTO(Long carId, LocalDate dateDeparture, LocalDate dateArrival) {

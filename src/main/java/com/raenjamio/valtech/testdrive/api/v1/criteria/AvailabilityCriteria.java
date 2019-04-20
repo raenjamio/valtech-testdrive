@@ -56,7 +56,7 @@ public class AvailabilityCriteria implements Serializable {
 
 	@Override
 	public String toString() {
-		return  "ReservationCriteria{" + (id != null ? "id=" + id + ", " : "")
+		return  "AvailabilityCriteria{" + (id != null ? "id=" + id + ", " : "")
 				+ (userId != null ? "userId=" + userId + ", " : "")
 				+ (carId != null ? "carId=" + carId + ", " : "")
 				+ (dateArrival != null ? "dateArrival=" + dateArrival + ", " : "") + "}";

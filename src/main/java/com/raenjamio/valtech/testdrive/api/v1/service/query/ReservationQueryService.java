@@ -42,17 +42,6 @@ public class ReservationQueryService extends QueryService<Reservation> {
         this.reservationMapper = ReservationMapper;
     }
 
-    /**
-     * Return a {@link List} of {@link ReservationDTO} which matches the criteria from the database
-     * @param criteria The object which holds all the filters, which the entities should match.
-     * @return the matching entities.
-     */
-    @Transactional(readOnly = true)
-    public List<ReservationDTO> findByCriteria(ReservationCriteria criteria) {
-        log.debug("find by criteria : {}", criteria);
-        final Specification<Reservation> specification = createSpecification(criteria);
-        return reservationMapper.toDto(reservationRepository.findAll(specification));
-    }
 
     /**
      * Return a {@link Page} of {@link ReservationDTO} which matches the criteria from the database
@@ -66,18 +55,6 @@ public class ReservationQueryService extends QueryService<Reservation> {
         final Specification<Reservation> specification = createSpecification(criteria);
         return reservationRepository.findAll(specification, page)
             .map(reservationMapper::toDto);
-    }
-
-    /**
-     * Return the number of matching entities in the database
-     * @param criteria The object which holds all the filters, which the entities should match.
-     * @return the number of matching entities.
-     */
-    @Transactional(readOnly = true)
-    public long countByCriteria(ReservationCriteria criteria) {
-        log.debug("count by criteria : {}", criteria);
-        final Specification<Reservation> specification = createSpecification(criteria);
-        return reservationRepository.count(specification);
     }
 
     /**

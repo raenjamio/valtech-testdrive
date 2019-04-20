@@ -1,15 +1,20 @@
 package com.raenjamio.valtech.testdrive.exceptions;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.dao.ConcurrencyFailureException;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.transaction.TransactionSystemException;
@@ -23,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
 
 @RestController
 public class ExceptionTranslatorTestController {
@@ -38,51 +44,62 @@ public class ExceptionTranslatorTestController {
 
     
     @GetMapping("/test/type-mismatch")
-    public void typeMismatchException(@RequestParam String param) {
+    public void typeMismatchException() {
     	throw new TypeMismatchException("value", String.class);
     }
     
     @GetMapping("/test/type-bind")
-    public void bindException(@RequestParam String param) throws org.springframework.validation.BindException {
-    	throw new org.springframework.validation.BindException(String.class, "test");
+    public void bindException() throws org.springframework.validation.BindException {
+    	throw new org.springframework.validation.BindException (String.class, "test");
     }
     
     @GetMapping("/test/missing-servlet-request-part")
-    public void missingServletRequestPartException(@RequestParam String param) throws MissingServletRequestPartException {
+    public void missingServletRequestPartException() throws MissingServletRequestPartException {
     	throw new MissingServletRequestPartException("test");
     }
     
+    @GetMapping("/test/methodArgumentTypeMismatchException")
+    public void methodArgumentTypeMismatchException(@RequestParam Long param) {
+    }
+    
     @GetMapping("/test/constraint")
-    public void constraintViolationException(@RequestParam String param) {
-    	throw new ConstraintViolationException("Error", new SQLException(), "constraint");
+    public void constraintViolationException() {
+    	Set<ConstraintViolation> contranint = new HashSet();
+    	throw new javax.validation.ConstraintViolationException("test", new HashSet());
     }
     
     
     @GetMapping("/test/handleNoHandlerFoundException")
-    public void handleNoHandlerFoundException(@RequestParam String param) throws NoHandlerFoundException {
+    public void handleNoHandlerFoundException() throws NoHandlerFoundException {
     	throw new NoHandlerFoundException("test", "/test/handleNoHandlerFoundException", new HttpHeaders());
     }
     
     
     @GetMapping("/test/httpRequestMethodNotSupportedException")
-    public void httpRequestMethodNotSupportedException(@RequestParam String param) throws HttpRequestMethodNotSupportedException {
-    	throw new HttpRequestMethodNotSupportedException("test");
+    public void httpRequestMethodNotSupportedException() throws HttpRequestMethodNotSupportedException {
+    	Set<String> methods = new HashSet<>();
+    	methods.add(HttpMethod.GET.toString());
+		throw new HttpRequestMethodNotSupportedException("test", methods);
     }
     
     
     @GetMapping("/test/handleHttpMediaTypeNotSupported")
-    public void handleHttpMediaTypeNotSupported(@RequestParam String param) throws HttpMediaTypeNotSupportedException {
-    	throw new HttpMediaTypeNotSupportedException("error");
+    public void handleHttpMediaTypeNotSupported() throws HttpMediaTypeNotSupportedException {
+    	List<MediaType> mediaTypes = new ArrayList();
+    	mediaTypes.add(MediaType.APPLICATION_JSON);
+		MediaType contenType = MediaType.APPLICATION_FORM_URLENCODED;
+		throw new HttpMediaTypeNotSupportedException(contenType, mediaTypes);
     }
     
     
     @GetMapping("/test/transactionSystemException")
-    public void transactionSystemException(@RequestParam String param) {
-    	throw new TransactionSystemException("error");
+    public void transactionSystemException() {
+    	Throwable cause = new Throwable();
+		throw new TransactionSystemException("test", cause);
     }
     
     @GetMapping("/test/badRequestAlertException")
-    public void adRequestAlertException(@RequestParam String param) {
+    public void adRequestAlertException() {
     	throw new BadRequestAlertException("error", "test", "test");
     }
     

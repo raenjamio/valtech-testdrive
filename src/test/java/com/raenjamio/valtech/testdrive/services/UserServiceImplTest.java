@@ -157,5 +157,17 @@ public class UserServiceImplTest {
 
         verify(userRepository, times(1)).deleteById(anyLong());
     }
+    
+    @Test
+    public void deleteUser() throws Exception {
+
+    	UserDTO userDTO = UserTest.builUserDTOTest(1L);
+
+        userService.delete(userDTO);
+
+        verify(userRepository, times(1)).delete(any());
+    }
+    
+    
 
 }

@@ -171,5 +171,16 @@ public class ReservationServiceImplTest {
 
         verify(reservationRepository, times(1)).deleteById(anyLong());
     }
+    
+    @Test
+    public void deleteReservation() throws Exception {
+
+        Long id = 1L;
+        ReservationDTO reservationDTO = ReservationTest.builReservationDTOTest(1L);
+        
+        reservationService.delete(reservationDTO);
+
+        verify(reservationRepository, times(1)).delete(any());
+    }
 
 }

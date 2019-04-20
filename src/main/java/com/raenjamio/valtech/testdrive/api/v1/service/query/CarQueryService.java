@@ -38,17 +38,6 @@ public class CarQueryService extends QueryService<Car> {
         this.carMapper = CarMapper;
     }
 
-    /**
-     * Return a {@link List} of {@link CarDTO} which matches the criteria from the database
-     * @param criteria The object which holds all the filters, which the entities should match.
-     * @return the matching entities.
-     */
-    @Transactional(readOnly = true)
-    public List<CarDTO> findByCriteria(CarCriteria criteria) {
-        log.debug("find by criteria : {}", criteria);
-        final Specification<Car> specification = createSpecification(criteria);
-        return carMapper.toDto(carRepository.findAll(specification));
-    }
 
     /**
      * Return a {@link Page} of {@link CarDTO} which matches the criteria from the database

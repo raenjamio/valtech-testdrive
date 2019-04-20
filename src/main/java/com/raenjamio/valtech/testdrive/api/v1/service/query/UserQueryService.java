@@ -38,17 +38,6 @@ public class UserQueryService extends QueryService<User> {
         this.userMapper = UserMapper;
     }
 
-    /**
-     * Return a {@link List} of {@link UserDTO} which matches the criteria from the database
-     * @param criteria The object which holds all the filters, which the entities should match.
-     * @return the matching entities.
-     */
-    @Transactional(readOnly = true)
-    public List<UserDTO> findByCriteria(UserCriteria criteria) {
-        log.debug("find by criteria : {}", criteria);
-        final Specification<User> specification = createSpecification(criteria);
-        return userMapper.toDto(userRepository.findAll(specification));
-    }
 
     /**
      * Return a {@link Page} of {@link UserDTO} which matches the criteria from the database

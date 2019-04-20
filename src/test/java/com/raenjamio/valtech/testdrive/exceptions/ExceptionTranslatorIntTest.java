@@ -57,7 +57,7 @@ public class ExceptionTranslatorIntTest {
              .andExpect(status().isBadRequest())
              .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
              .andExpect(jsonPath("$.status").value(Status.BAD_REQUEST.toString()))
-             .andExpect(jsonPath("$.errors.[0]").value("param parameter is missing"));
+             .andExpect(jsonPath("$.message").value("test"));
     }
 
     @Test
@@ -75,8 +75,7 @@ public class ExceptionTranslatorIntTest {
          mockMvc.perform(get("/test/type-mismatch").content("{}").contentType(MediaType.APPLICATION_JSON))
              .andExpect(status().isBadRequest())
              .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-             .andExpect(jsonPath("$.status").value(Status.BAD_REQUEST.toString()))
-             .andExpect(jsonPath("$.errors.[0]").value("param parameter is missing"));
+             .andExpect(jsonPath("$.status").value(Status.BAD_REQUEST.toString()));
     }
     
     @Test
@@ -84,10 +83,18 @@ public class ExceptionTranslatorIntTest {
          mockMvc.perform(get("/test/type-bind").content("{}").contentType(MediaType.APPLICATION_JSON))
              .andExpect(status().isBadRequest())
              .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+             .andExpect(jsonPath("$.status").value(Status.BAD_REQUEST.toString()));
+    }
+    /*
+    @Test
+    public void methodArgumentTypeMismatchException() throws Exception {
+         mockMvc.perform(get("/test/methodArgumentTypeMismatchException/aa").content("{}").contentType(MediaType.APPLICATION_JSON))
+             .andExpect(status().isBadRequest())
+             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
              .andExpect(jsonPath("$.status").value(Status.BAD_REQUEST.toString()))
              .andExpect(jsonPath("$.errors.[0]").value("param parameter is missing"));
     }
-
+	*/
 
     @Test
     public void testMissingServletRequestPartException() throws Exception {
@@ -95,37 +102,38 @@ public class ExceptionTranslatorIntTest {
             .andExpect(status().isBadRequest())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
             .andExpect(jsonPath("$.status").value(Status.BAD_REQUEST.toString()))
-            .andExpect(jsonPath("$.errors.[0]").value("param parameter is missing"));
+            .andExpect(jsonPath("$.errors.[0]").value("test part is missing"));
     }
     
     @Test
     public void handleNoHandlerFoundException() throws Exception {
         mockMvc.perform(get("/test/handleNoHandlerFoundException"))
-            .andExpect(status().isBadRequest())
+            .andExpect(status().isNotFound())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(jsonPath("$.status").value(Status.BAD_REQUEST.toString()))
-            .andExpect(jsonPath("$.errors.[0]").value("param parameter is missing"));
+            .andExpect(jsonPath("$.status").value(Status.NOT_FOUND.toString()))
+            .andExpect(jsonPath("$.message").value("No handler found for test /test/handleNoHandlerFoundException"))
+            .andExpect(jsonPath("$.errors.[0]").value("No handler found for test /test/handleNoHandlerFoundException"));
     }
     
     
     @Test
     public void httpRequestMethodNotSupportedException() throws Exception {
         mockMvc.perform(get("/test/httpRequestMethodNotSupportedException"))
-            .andExpect(status().isBadRequest())
+            .andExpect(status().isMethodNotAllowed())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(jsonPath("$.status").value(Status.BAD_REQUEST.toString()))
-            .andExpect(jsonPath("$.errors.[0]").value("param parameter is missing"));
+            .andExpect(jsonPath("$.status").value(Status.METHOD_NOT_ALLOWED.toString()))
+            .andExpect(jsonPath("$.message").value("Request method 'test' not supported"))
+            .andExpect(jsonPath("$.errors.[0]").value("test method is not supported for this request. Supported methods are GET "));
     }
     
     @Test
     public void handleHttpMediaTypeNotSupported() throws Exception {
         mockMvc.perform(get("/test/handleHttpMediaTypeNotSupported"))
-            .andExpect(status().isBadRequest())
+            .andExpect(status().isUnsupportedMediaType())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(jsonPath("$.status").value(Status.BAD_REQUEST.toString()))
-            .andExpect(jsonPath("$.errors.[0]").value("param parameter is missing"));
+            .andExpect(jsonPath("$.status").value(Status.UNSUPPORTED_MEDIA_TYPE.toString()));
     }
-    
+    /*
     @Test
     public void transactionSystemException() throws Exception {
         mockMvc.perform(get("/test/transactionSystemException"))
@@ -134,14 +142,14 @@ public class ExceptionTranslatorIntTest {
             .andExpect(jsonPath("$.status").value(Status.BAD_REQUEST.toString()))
             .andExpect(jsonPath("$.errors.[0]").value("param parameter is missing"));
     }
-    
+    */
     @Test
     public void badRequestAlertException() throws Exception {
         mockMvc.perform(get("/test/badRequestAlertException"))
             .andExpect(status().isBadRequest())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
             .andExpect(jsonPath("$.status").value(Status.BAD_REQUEST.toString()))
-            .andExpect(jsonPath("$.errors.[0]").value("param parameter is missing"));
+            .andExpect(jsonPath("$.errors.[0]").value("BAD_REQUEST"));
     }
 
     @Test

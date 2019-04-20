@@ -153,5 +153,16 @@ public class CarServiceImplTest {
 
         verify(carRepository, times(1)).deleteById(anyLong());
     }
+    
+    @Test
+    public void deleteCar() throws Exception {
+
+        Long id = 1L;
+        CarDTO carDTO = CarTest.builCarDTOTest(1L);
+        
+        carService.delete(carDTO);
+
+        verify(carRepository, times(1)).delete(any());
+    }
 
 }
