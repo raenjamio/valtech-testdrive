@@ -4,13 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -21,8 +17,6 @@ import com.raenjamio.valtech.testdrive.api.v1.model.available.PageAvailable;
 import com.raenjamio.valtech.testdrive.api.v1.model.car.CarDTO;
 import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
 import com.raenjamio.valtech.testdrive.api.v1.service.CarService;
-import com.raenjamio.valtech.testdrive.api.v1.service.ReservationService;
-import com.raenjamio.valtech.testdrive.api.v1.service.query.ReservationQueryService;
 import com.raenjamio.valtech.testdrive.exceptions.BadRequestAlertException;
 import com.raenjamio.valtech.testdrive.util.DateRange;
 

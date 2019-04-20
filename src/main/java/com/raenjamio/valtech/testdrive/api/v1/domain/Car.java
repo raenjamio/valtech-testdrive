@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

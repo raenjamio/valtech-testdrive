@@ -1,6 +1,5 @@
 package com.raenjamio.valtech.testdrive.api.v1.model.user;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;

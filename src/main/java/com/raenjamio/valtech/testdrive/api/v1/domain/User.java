@@ -13,7 +13,6 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -33,19 +33,6 @@ public class SecurityConfig {
 	@Configuration
 	@Order(SecurityProperties.BASIC_AUTH_ORDER)
 	protected static class ApplicationSecurity extends WebSecurityConfigurerAdapter {
-		
-		private static final String[] AUTH_WHITELIST = {
-
-	            // -- swagger ui
-	            "/swagger-resources/**",
-	            "/swagger-ui.html",
-	            "/v2/api-docs",
-	            "/webjars/**",
-	            "/configuration/ui",
-	            "/configuration/security",
-	            "/v2/swagger.json"
-	            
-	    };
 
 		@Override
 		public void configure(WebSecurity web) throws Exception {

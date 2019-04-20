@@ -3,8 +3,6 @@ package com.raenjamio.valtech.testdrive.api.v1.criteria;
 import java.io.Serializable;
 import java.util.Objects;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.classmate.Filter;
 
 import io.github.jhipster.service.filter.LongFilter;

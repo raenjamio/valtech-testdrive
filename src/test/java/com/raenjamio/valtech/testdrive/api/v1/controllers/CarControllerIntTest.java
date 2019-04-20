@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -40,7 +39,6 @@ import com.raenjamio.valtech.testdrive.api.v1.domain.Reservation;
 import com.raenjamio.valtech.testdrive.api.v1.mapper.CarMapper;
 import com.raenjamio.valtech.testdrive.api.v1.model.car.CarDTO;
 import com.raenjamio.valtech.testdrive.api.v1.repository.CarRepository;
-import com.raenjamio.valtech.testdrive.api.v1.repository.UserRepository;
 import com.raenjamio.valtech.testdrive.api.v1.service.CarService;
 import com.raenjamio.valtech.testdrive.api.v1.service.query.CarQueryService;
 import com.raenjamio.valtech.testdrive.util.CarTest;
@@ -61,9 +59,6 @@ public class CarControllerIntTest {
 
 	@Autowired
 	private CarRepository carRepository;
-
-	@Autowired
-	private UserRepository userRepository;
 
 	@Autowired
 	private CarMapper carMapper;
@@ -155,6 +150,7 @@ public class CarControllerIntTest {
 				.andExpect(jsonPath("$.data.content.[*].id").value(hasItem(carSaved.getId().intValue())))
 				.andExpect(jsonPath("$.data.content.[*].brand").value(hasItem(CarTest.BRAND)))
 				.andExpect(jsonPath("$.data.content.[*].description").value(hasItem(CarTest.DESCRIPTION)));
+		assertTrue(true);
 	}
 
 	@Test
@@ -171,6 +167,7 @@ public class CarControllerIntTest {
 				.andExpect(jsonPath("$.description").value(CarTest.DESCRIPTION))
 
 		;
+		assertTrue(true);
 	}
 
 	@Test
@@ -183,6 +180,7 @@ public class CarControllerIntTest {
 
 		// Get all the carList where marca equals to UPDATED_MARCA
 		defaultCarShouldNotBeFound("id.equals=" + 100);
+		assertTrue(true);
 	}
 
 	@Test
@@ -194,6 +192,7 @@ public class CarControllerIntTest {
 		defaultCarShouldBeFound("id.in=" + car.getId().toString());
 
 		defaultCarShouldNotBeFound("id.in= 100");
+		assertTrue(true);
 	}
 
 	@Test
@@ -207,6 +206,7 @@ public class CarControllerIntTest {
 
 		// Get all the carList where marca is null
 		defaultCarShouldNotBeFound("id.specified=false");
+		assertTrue(true);
 	}
 
 	/**

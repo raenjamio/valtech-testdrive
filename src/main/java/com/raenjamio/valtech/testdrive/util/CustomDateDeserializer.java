@@ -1,12 +1,8 @@
 package com.raenjamio.valtech.testdrive.util;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
-import org.springframework.expression.ParseException;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,7 +11,11 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 public class CustomDateDeserializer extends StdDeserializer<LocalDateTime> {
  
-    private  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 527840660502554270L;
+	private  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
  
     public CustomDateDeserializer() {
         this(null);

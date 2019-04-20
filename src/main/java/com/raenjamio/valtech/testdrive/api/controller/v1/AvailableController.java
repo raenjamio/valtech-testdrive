@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.raenjamio.valtech.testdrive.api.usecase.available.GetAvailavility;
 import com.raenjamio.valtech.testdrive.api.v1.model.available.PageAvailable;
-import com.raenjamio.valtech.testdrive.api.v1.service.ReservationService;
-import com.raenjamio.valtech.testdrive.api.v1.service.query.ReservationQueryService;
 
 import lombok.extern.slf4j.Slf4j;
 

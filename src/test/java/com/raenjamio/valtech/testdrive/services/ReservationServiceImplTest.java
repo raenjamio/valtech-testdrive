@@ -7,7 +7,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
@@ -25,10 +24,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.raenjamio.valtech.testdrive.api.usecase.reservation.CreateReservation;
 import com.raenjamio.valtech.testdrive.api.v1.domain.Reservation;
 import com.raenjamio.valtech.testdrive.api.v1.domain.ReservationState;
-import com.raenjamio.valtech.testdrive.api.v1.domain.User;
 import com.raenjamio.valtech.testdrive.api.v1.mapper.ReservationMapper;
 import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
-import com.raenjamio.valtech.testdrive.api.v1.model.user.UserDTO;
 import com.raenjamio.valtech.testdrive.api.v1.repository.ReservationRepository;
 import com.raenjamio.valtech.testdrive.api.v1.service.ReservationService;
 import com.raenjamio.valtech.testdrive.api.v1.service.impl.ReservationServiceImpl;

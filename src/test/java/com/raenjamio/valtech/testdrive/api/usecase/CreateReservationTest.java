@@ -22,7 +22,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.stubbing.Answer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -89,7 +88,7 @@ public class CreateReservationTest {
 	 */
 
 	@Test
-	public void create_OK_wtih_user() throws Exception {
+	public void createOKWithUser() throws Exception {
 		// given
 
 		when(carService.findById(anyLong())).thenReturn(car);
@@ -119,7 +118,7 @@ public class CreateReservationTest {
 	 */
 
 	@Test
-	public void create_OK_without_user() throws Exception {
+	public void createOkWithoutUser() throws Exception {
 		// given
 
 		when(carService.findById(anyLong())).thenReturn(car);
@@ -154,7 +153,7 @@ public class CreateReservationTest {
 	 */
 
 	@Test // (expected = BadRequestAlertException.class)
-	public void create_No_OK_without_car() throws Exception {
+	public void createNoOkWithoutCar() throws Exception {
 
 		exceptionRule.expect(BadRequestAlertException.class);
 		exceptionRule.expectMessage(" No existe un auto para reservar ");
@@ -176,7 +175,7 @@ public class CreateReservationTest {
 	 */
 
 	@Test // (expected = BadRequestAlertException.class)
-	public void create_Not_OK_without_date_departure() throws Exception {
+	public void createNotOkWithoutDateDeparture() throws Exception {
 
 		exceptionRule.expect(BadRequestAlertException.class);
 		exceptionRule.expectMessage(" Falta la fecha de reserva (dateDeparture)");
@@ -199,7 +198,7 @@ public class CreateReservationTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void create_Not_OK_because_date_departure_is_less() throws Exception {
+	public void createNotOkBecauseDateDepartureIsLess() throws Exception {
 
 		exceptionRule.expect(BadRequestAlertException.class);
 		exceptionRule.expectMessage("La fecha de reserva es menor a la fecha minima de reserva ");
@@ -223,7 +222,7 @@ public class CreateReservationTest {
 	 */
 
 	@Test
-	public void create_Not_OK_because_date_departure_is_high() throws Exception {
+	public void createNotOkBecauseDateDepartureIsHigh() throws Exception {
 
 		exceptionRule.expect(BadRequestAlertException.class);
 		exceptionRule.expectMessage("La fecha de reserva es mayor a la fecha maxima de reserva ");
@@ -247,7 +246,7 @@ public class CreateReservationTest {
 	 */
 
 	@Test
-	public void create_Not_OK_because_exist_reservation_in_same_time() throws Exception {
+	public void createNotOkBecauseExistReservationInSameTime() throws Exception {
 
 		exceptionRule.expect(BadRequestAlertException.class);
 		exceptionRule.expectMessage("Existe una reserva en el periodo indicado");

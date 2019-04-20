@@ -1,9 +1,8 @@
 package com.raenjamio.valtech.testdrive.api.v1.controllers;
 
 
-import static org.assertj.core.api.Assertions.not;
-import static org.assertj.core.api.Assertions.notIn;
 import static org.hamcrest.Matchers.hasItem;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -35,12 +34,8 @@ import com.raenjamio.valtech.testdrive.api.controller.v1.CarController;
 import com.raenjamio.valtech.testdrive.api.controller.v1.ReservationController;
 import com.raenjamio.valtech.testdrive.api.usecase.available.GetAvailavility;
 import com.raenjamio.valtech.testdrive.api.v1.domain.Reservation;
-import com.raenjamio.valtech.testdrive.api.v1.domain.ReservationState;
-import com.raenjamio.valtech.testdrive.api.v1.mapper.ReservationMapper;
-import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
 import com.raenjamio.valtech.testdrive.api.v1.repository.ReservationRepository;
 import com.raenjamio.valtech.testdrive.api.v1.repository.UserRepository;
-import com.raenjamio.valtech.testdrive.api.v1.service.ReservationService;
 import com.raenjamio.valtech.testdrive.util.ReservationTest;
 
 /**
@@ -52,20 +47,11 @@ import com.raenjamio.valtech.testdrive.util.ReservationTest;
 @SpringBootTest(classes = TestDriveApplication.class)
 public class AvailavilityControllerIntTest {
 
-    private static final ReservationState DEFAULT_STATE = ReservationState.CREATED;
-    private static final ReservationState UPDATED_STATE = ReservationState.CANCELED;
-
     @Autowired
     private ReservationRepository reservationRepository;
     
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private ReservationMapper reservationMapper;
-
-    @Autowired
-    private ReservationService reservationService;
 
     @Autowired
     private GetAvailavility availavilityUseCase;
@@ -146,6 +132,7 @@ public class AvailavilityControllerIntTest {
             .andExpect(jsonPath("$.data.[*].carUrl").value(hasItem(CarController.BASE_URL + "/1")))
             .andExpect(jsonPath("$.data.[*].reservationUrl").value(hasItem(CarController.BASE_URL + "/1/reservations")))
             ;
+        assertTrue(true);
     }
     
     
@@ -176,6 +163,7 @@ public class AvailavilityControllerIntTest {
             .andExpect(jsonPath("$.data.[*].carUrl").value(hasItem(CarController.BASE_URL + "/1")))
             .andExpect(jsonPath("$.data.[*].reservationUrl").value(hasItem(CarController.BASE_URL + "/1/reservations")))
             ;
+        assertTrue(true);
     }
     
     
@@ -205,6 +193,7 @@ public class AvailavilityControllerIntTest {
             .andExpect(jsonPath("$.data.[*].carUrl").value(hasItem(CarController.BASE_URL + "/1")))
             .andExpect(jsonPath("$.data.[*].reservationUrl").value(hasItem(CarController.BASE_URL + "/1/reservations")))
             ;
+        assertTrue(true);
     }
 
 }

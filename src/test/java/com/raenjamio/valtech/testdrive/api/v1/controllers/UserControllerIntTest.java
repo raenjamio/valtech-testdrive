@@ -3,6 +3,7 @@ package com.raenjamio.valtech.testdrive.api.v1.controllers;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -152,6 +153,7 @@ public class UserControllerIntTest {
 				.andExpect(jsonPath("$.data.content.[*].name").value(hasItem(UserTest.NAME)))
 				.andExpect(jsonPath("$.data.content.[*].lastName").value(hasItem(UserTest.LAST_NAME)))
 				.andExpect(jsonPath("$.data.content.[*].email").value(hasItem(UserTest.EMAIL)));
+		assertTrue(true);
 	}
 
 	@Test
@@ -169,6 +171,8 @@ public class UserControllerIntTest {
 				.andExpect(jsonPath("$.email").value(UserTest.EMAIL))
 
 		;
+		
+		assertTrue(true);
 	}
 
 	@Test
@@ -181,6 +185,8 @@ public class UserControllerIntTest {
 
 		// Get all the userList where marca equals to UPDATED_MARCA
 		defaultUserShouldNotBeFound("id.equals=" + 100);
+		
+		assertTrue(true);
 	}
 	
 	@Test
@@ -205,6 +211,8 @@ public class UserControllerIntTest {
 
 		// Get all the userList where marca equals to UPDATED_MARCA
 		defaultUserShouldNotBeFound("lastName.equals=" + "z");
+		
+		assertTrue(true);
 	}
 	
 	@Test
@@ -217,6 +225,8 @@ public class UserControllerIntTest {
 
 		// Get all the userList where marca equals to UPDATED_MARCA
 		defaultUserShouldNotBeFound("email.equals=" + "z");
+		
+		assertTrue(true);
 	}
 
 	@Test
@@ -228,6 +238,8 @@ public class UserControllerIntTest {
 		defaultUserShouldBeFound("id.in=" + user.getId());
 
 		defaultUserShouldNotBeFound("id.in= 100");
+		
+		assertTrue(true);
 	}
 
 	@Test
@@ -241,6 +253,8 @@ public class UserControllerIntTest {
 
 		// Get all the userList where marca is null
 		defaultUserShouldNotBeFound("id.specified=false");
+		
+		assertTrue(true);
 	}
 
 	/**

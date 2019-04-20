@@ -9,7 +9,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -41,7 +40,6 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.raenjamio.valtech.testdrive.api.controller.RestResponseEntityExceptionHandler;
-import com.raenjamio.valtech.testdrive.api.controller.v1.CarController;
 import com.raenjamio.valtech.testdrive.api.controller.v1.ReservationController;
 import com.raenjamio.valtech.testdrive.api.v1.criteria.ReservationCriteria;
 import com.raenjamio.valtech.testdrive.api.v1.domain.ReservationState;
@@ -53,7 +51,6 @@ import com.raenjamio.valtech.testdrive.api.v1.service.query.ReservationQueryServ
 import com.raenjamio.valtech.testdrive.exceptions.NotFoundException;
 import com.raenjamio.valtech.testdrive.util.AbstractRestControllerTest;
 import com.raenjamio.valtech.testdrive.util.ReservationTest;
-import com.raenjamio.valtech.testdrive.util.TestUtil;
 
 @WebMvcTest
 @EnableSpringDataWebSupport
@@ -211,7 +208,6 @@ public class ReservationControllerTest extends AbstractRestControllerTest{
     //@Test
     public void testUpdate() throws Exception {
         //given
-        ReservationDTO reservation = new ReservationDTO();
 
         ReservationDTO returnDTO = new ReservationDTO();
 

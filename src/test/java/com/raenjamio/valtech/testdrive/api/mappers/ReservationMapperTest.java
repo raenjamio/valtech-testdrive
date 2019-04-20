@@ -2,8 +2,6 @@ package com.raenjamio.valtech.testdrive.api.mappers;
 
 import static org.junit.Assert.assertEquals;
 
-import java.time.LocalDateTime;
-
 import org.junit.Test;
 
 import com.raenjamio.valtech.testdrive.api.v1.domain.Reservation;
@@ -12,6 +10,12 @@ import com.raenjamio.valtech.testdrive.api.v1.mapper.ReservationMapper;
 import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
 import com.raenjamio.valtech.testdrive.util.ReservationTest;
 
+
+/**
+ * testeamos el tester
+ * @author raenjamio
+ *
+ */
 public class ReservationMapperTest {
 
 	public static final long ID = 1L;
@@ -19,8 +23,6 @@ public class ReservationMapperTest {
 	private static final String EMAIL = "asdf@asdf.com";
 	private static final String NAME = "carlos";
 	private static final String LAST_NAME = "alvarez";
-	private static final LocalDateTime DATE_DEPARTURE =  ReservationTest.DATE_DEPARTURE;
-	private static final LocalDateTime DATE_ARRIVAL = ReservationTest.DATE_ARRIVAL;
 
 	ReservationMapper reservationMapper = ReservationMapper.INSTANCE;
 

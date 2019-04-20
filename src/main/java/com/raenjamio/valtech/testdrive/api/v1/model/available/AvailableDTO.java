@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.raenjamio.valtech.testdrive.api.controller.v1.CarController;
-import com.raenjamio.valtech.testdrive.api.v1.model.car.CarDTO;
 import com.raenjamio.valtech.testdrive.util.CustomDateDeserializer;
 import com.raenjamio.valtech.testdrive.util.CustomLocalDateTimeSerializer;
 

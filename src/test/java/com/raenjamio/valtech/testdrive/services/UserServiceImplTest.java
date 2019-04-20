@@ -7,7 +7,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
@@ -23,9 +22,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.raenjamio.valtech.testdrive.api.v1.domain.User;
-import com.raenjamio.valtech.testdrive.api.v1.domain.User;
 import com.raenjamio.valtech.testdrive.api.v1.mapper.UserMapper;
-import com.raenjamio.valtech.testdrive.api.v1.model.user.UserDTO;
 import com.raenjamio.valtech.testdrive.api.v1.model.user.UserDTO;
 import com.raenjamio.valtech.testdrive.api.v1.repository.UserRepository;
 import com.raenjamio.valtech.testdrive.api.v1.service.UserService;

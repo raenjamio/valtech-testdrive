@@ -1,15 +1,13 @@
 package com.raenjamio.valtech.testdrive.exceptions;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.zalando.problem.AbstractThrowableProblem;
-import org.zalando.problem.Status;
-
-import com.raenjamio.valtech.testdrive.error.ErrorConstants;
-
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import com.raenjamio.valtech.testdrive.error.ErrorConstants;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class BadRequestAlertException extends RuntimeException {

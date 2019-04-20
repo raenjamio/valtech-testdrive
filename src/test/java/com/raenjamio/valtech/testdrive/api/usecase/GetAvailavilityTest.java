@@ -2,12 +2,8 @@ package com.raenjamio.valtech.testdrive.api.usecase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -16,8 +12,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.junit.Before;
@@ -26,7 +20,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
@@ -39,12 +32,9 @@ import com.raenjamio.valtech.testdrive.api.v1.mapper.ReservationMapper;
 import com.raenjamio.valtech.testdrive.api.v1.model.available.PageAvailable;
 import com.raenjamio.valtech.testdrive.api.v1.model.car.CarDTO;
 import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
-import com.raenjamio.valtech.testdrive.api.v1.model.user.UserDTO;
 import com.raenjamio.valtech.testdrive.api.v1.service.CarService;
 import com.raenjamio.valtech.testdrive.exceptions.BadRequestAlertException;
 import com.raenjamio.valtech.testdrive.util.CarTest;
-import com.raenjamio.valtech.testdrive.util.ReservationTest;
-import com.raenjamio.valtech.testdrive.util.UserTest;
 
 @ContextConfiguration(classes = GetAvailavilityTest.class)
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -55,8 +45,6 @@ public class GetAvailavilityTest {
 	CarService carService;
 
 	GetAvailavility getAvailavility;
-
-	private ReservationDTO reservationDTO;
 
 	private CarDTO car;
 
@@ -94,7 +82,7 @@ public class GetAvailavilityTest {
 	 */
 
 	@Test
-	public void get_availavility_OK() throws Exception {
+	public void getAvailavilityOK() throws Exception {
 		// given
 
 		when(carService.findById(anyLong())).thenReturn(car);
@@ -116,7 +104,7 @@ public class GetAvailavilityTest {
 	 */
 
 	@Test
-	public void get_availavility_OK_without_date_end() throws Exception {
+	public void getAvailavilityOkWithoutDateEnd() throws Exception {
 		// given
 
 		when(carService.findById(anyLong())).thenReturn(car);
@@ -139,7 +127,7 @@ public class GetAvailavilityTest {
 	 */
 
 	@Test
-	public void get_availavility_without_date_reservation() throws Exception {
+	public void getAvailavilityWithoutDateReservation() throws Exception {
 		// given
 		
 		CarDTO mockCar = mock(CarDTO.class);
@@ -175,7 +163,7 @@ public class GetAvailavilityTest {
 
 	
 	@Test // (expected = BadRequestAlertException.class)
-	public void get_availavility_wrong_dates() throws Exception {
+	public void getAvailavilityWrongDates() throws Exception {
 		
 		CarDTO mockCar = mock(CarDTO.class);
 
