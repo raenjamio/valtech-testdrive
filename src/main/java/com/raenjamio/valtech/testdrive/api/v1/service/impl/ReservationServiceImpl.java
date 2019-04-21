@@ -83,7 +83,8 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @throws ExecutionException 
 	 * @throws InterruptedException 
 	 */
-	public synchronized ReservationDTO createNew(Long idCar, ReservationDTO reservationDTO) {
+	@Transactional(isolation = Isolation.SERIALIZABLE)
+	public ReservationDTO createNew(Long idCar, ReservationDTO reservationDTO) {
 		log.debug("@createNew reservation: " + reservationDTO);
 		reservationDTO.setCarId(idCar);
 		
