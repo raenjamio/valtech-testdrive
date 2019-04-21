@@ -5,15 +5,10 @@ package com.raenjamio.valtech.testdrive.api.v1.service.impl;
 
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.google.common.util.concurrent.ListeningExecutorService;
-import com.google.common.util.concurrent.MoreExecutors;
 import com.raenjamio.valtech.testdrive.api.usecase.reservation.CreateReservation;
 import com.raenjamio.valtech.testdrive.api.v1.domain.Reservation;
 import com.raenjamio.valtech.testdrive.api.v1.mapper.ReservationMapper;
@@ -82,7 +77,6 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @throws InterruptedException 
 	 */
 	
-	//@Transactional
 	public synchronized ReservationDTO createNew(Long idCar, ReservationDTO reservationDTO) {
 		log.debug("@createNew reservation: " + reservationDTO);
 		reservationDTO.setCarId(idCar);

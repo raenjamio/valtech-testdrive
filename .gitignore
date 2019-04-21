@@ -122,6 +122,9 @@ Desktop.ini
 ######################
 *.class
 logs/*.log
+logs/spring-boot-logger.log
+/logs/
+/logs
 
 *.*~
 *~
