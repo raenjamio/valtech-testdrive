@@ -1,12 +1,5 @@
 package com.raenjamio.valtech.testdrive.boostrap;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +7,6 @@ import com.raenjamio.valtech.testdrive.api.v1.domain.Car;
 import com.raenjamio.valtech.testdrive.api.v1.repository.CarRepository;
 
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.utility.RandomString;
 
 /**
  * 

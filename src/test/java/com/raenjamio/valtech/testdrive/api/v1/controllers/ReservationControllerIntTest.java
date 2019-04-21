@@ -4,7 +4,6 @@ package com.raenjamio.valtech.testdrive.api.v1.controllers;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -246,7 +245,6 @@ public class ReservationControllerIntTest {
         // Get all the reservationList where marca equals to UPDATED_MARCA
         defaultReservationShouldNotBeFound("userId.equals=" + 100);
         
-        assertTrue(true);
     }
     
     @Test

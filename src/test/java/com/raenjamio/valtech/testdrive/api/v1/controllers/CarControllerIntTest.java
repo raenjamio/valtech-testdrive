@@ -150,7 +150,6 @@ public class CarControllerIntTest {
 				.andExpect(jsonPath("$.data.content.[*].id").value(hasItem(carSaved.getId().intValue())))
 				.andExpect(jsonPath("$.data.content.[*].brand").value(hasItem(CarTest.BRAND)))
 				.andExpect(jsonPath("$.data.content.[*].description").value(hasItem(CarTest.DESCRIPTION)));
-		assertTrue(true);
 	}
 
 	@Test
@@ -167,7 +166,6 @@ public class CarControllerIntTest {
 				.andExpect(jsonPath("$.description").value(CarTest.DESCRIPTION))
 
 		;
-		assertTrue(true);
 	}
 
 	@Test
@@ -180,7 +178,6 @@ public class CarControllerIntTest {
 
 		// Get all the carList where marca equals to UPDATED_MARCA
 		defaultCarShouldNotBeFound("id.equals=" + 100);
-		assertTrue(true);
 	}
 
 	@Test
@@ -192,7 +189,6 @@ public class CarControllerIntTest {
 		defaultCarShouldBeFound("id.in=" + car.getId().toString());
 
 		defaultCarShouldNotBeFound("id.in= 100");
-		assertTrue(true);
 	}
 
 	@Test
@@ -206,7 +202,6 @@ public class CarControllerIntTest {
 
 		// Get all the carList where marca is null
 		defaultCarShouldNotBeFound("id.specified=false");
-		assertTrue(true);
 	}
 
 	/**
