@@ -121,6 +121,8 @@ Desktop.ini
 # Others
 ######################
 *.class
+logs/*.log
+
 *.*~
 *~
 .merge_file*
