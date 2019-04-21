@@ -71,7 +71,7 @@ public class CreateReservation {
 	 * @return
 	 */
 	
-	public ReservationDTO create(ReservationDTO reservationDTO) {
+	public synchronized ReservationDTO create(ReservationDTO reservationDTO) {
 		log.debug("create reservation");
 
 		CarDTO car = carService.findById(reservationDTO.getCarId());
