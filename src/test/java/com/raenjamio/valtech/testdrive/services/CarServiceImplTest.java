@@ -51,7 +51,7 @@ public class CarServiceImplTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        carService = new CarServiceImpl(carMapper, carRepository);
+        carService = new CarServiceImpl(carMapper, carRepository, null);
     }
 
     @Test

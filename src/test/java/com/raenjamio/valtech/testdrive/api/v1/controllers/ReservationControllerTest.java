@@ -39,7 +39,6 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import com.raenjamio.valtech.testdrive.api.controller.RestResponseEntityExceptionHandler;
 import com.raenjamio.valtech.testdrive.api.controller.v1.ReservationController;
 import com.raenjamio.valtech.testdrive.api.v1.criteria.ReservationCriteria;
 import com.raenjamio.valtech.testdrive.api.v1.domain.ReservationState;
@@ -48,6 +47,7 @@ import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
 import com.raenjamio.valtech.testdrive.api.v1.repository.ReservationRepository;
 import com.raenjamio.valtech.testdrive.api.v1.service.ReservationService;
 import com.raenjamio.valtech.testdrive.api.v1.service.query.ReservationQueryService;
+import com.raenjamio.valtech.testdrive.exceptions.CustomRestExceptionHandler;
 import com.raenjamio.valtech.testdrive.exceptions.NotFoundException;
 import com.raenjamio.valtech.testdrive.util.AbstractRestControllerTest;
 import com.raenjamio.valtech.testdrive.util.ReservationTest;
@@ -99,7 +99,7 @@ public class ReservationControllerTest extends AbstractRestControllerTest{
 	    MockitoAnnotations.initMocks(this);
 	
 	    mockMvc = MockMvcBuilders.standaloneSetup(new ReservationController(reservationQueryService, reservationService))
-	            .setControllerAdvice(new RestResponseEntityExceptionHandler())
+	            .setControllerAdvice(new CustomRestExceptionHandler())
 	            .setCustomArgumentResolvers(pageableArgumentResolver)
 	            //.setConversionService(createFormattingConversionService())
 	            //.setMessageConverters(jacksonMessageConverter)

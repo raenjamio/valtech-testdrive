@@ -156,7 +156,7 @@ public class CreateReservationTest {
 	public void createNoOkWithoutCar() throws Exception {
 
 		exceptionRule.expect(BadRequestAlertException.class);
-		exceptionRule.expectMessage(" No existe un auto para reservar ");
+		exceptionRule.expectMessage(" Not exist car for reservation");
 
 		when(carService.findById(anyLong())).thenReturn(null);
 		when(userService.findByNameAndLastNameEquals(any(), any())).thenReturn(Optional.empty());
@@ -178,7 +178,7 @@ public class CreateReservationTest {
 	public void createNotOkWithoutDateDeparture() throws Exception {
 
 		exceptionRule.expect(BadRequestAlertException.class);
-		exceptionRule.expectMessage(" Falta la fecha de reserva (dateDeparture)");
+		exceptionRule.expectMessage(" Date departure is required");
 
 		when(carService.findById(anyLong())).thenReturn(car);
 		when(userService.findByNameAndLastNameEquals(any(), any())).thenReturn(Optional.empty());
@@ -201,7 +201,7 @@ public class CreateReservationTest {
 	public void createNotOkBecauseDateDepartureIsLess() throws Exception {
 
 		exceptionRule.expect(BadRequestAlertException.class);
-		exceptionRule.expectMessage("La fecha de reserva es menor a la fecha minima de reserva ");
+		exceptionRule.expectMessage("The reservation date is less than the minimum reservation date ");
 
 		when(carService.findById(anyLong())).thenReturn(car);
 		when(userService.findByNameAndLastNameEquals(any(), any())).thenReturn(Optional.empty());
@@ -225,7 +225,7 @@ public class CreateReservationTest {
 	public void createNotOkBecauseDateDepartureIsHigh() throws Exception {
 
 		exceptionRule.expect(BadRequestAlertException.class);
-		exceptionRule.expectMessage("La fecha de reserva es mayor a la fecha maxima de reserva ");
+		exceptionRule.expectMessage("The reservation date is longer than the maximum reservation date ");
 
 		when(carService.findById(anyLong())).thenReturn(car);
 		when(userService.findByNameAndLastNameEquals(any(), any())).thenReturn(Optional.empty());
@@ -249,7 +249,7 @@ public class CreateReservationTest {
 	public void createNotOkBecauseExistReservationInSameTime() throws Exception {
 
 		exceptionRule.expect(BadRequestAlertException.class);
-		exceptionRule.expectMessage("Existe una reserva en el periodo indicado");
+		exceptionRule.expectMessage("Exist a reservation in this period");
 
 		CarDTO mockCar = mock(CarDTO.class);
 

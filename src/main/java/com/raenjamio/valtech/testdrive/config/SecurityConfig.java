@@ -49,6 +49,7 @@ public class SecurityConfig {
 						//.antMatchers("/api/admin/**").hasAnyRole(Roles.ADMIN)//
 						//.antMatchers("/health/**").hasAnyRole(Roles.ADMIN)//
 						//.antMatchers("/**").denyAll()//
+						.antMatchers("/actuator/prometheus").permitAll()
 						.and().csrf().disable()//
 						.anonymous().authorities(Roles.USER);//
 		}

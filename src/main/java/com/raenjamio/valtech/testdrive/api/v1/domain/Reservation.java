@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import lombok.Builder;
@@ -21,18 +23,16 @@ import lombok.Setter;
 
 /**
  * 
- * @author raenjamio
- * representacion de la reserva
+ * @author raenjamio representacion de la reserva
  */
-
 
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
-public class Reservation  {
-	
-	
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "dateDeparture", "car_id" }) })
+public class Reservation {
+
 	@Builder
 	public Reservation(Long id, User user, LocalDateTime dateArrival, LocalDateTime dateDeparture, Car car) {
 		super();
@@ -42,30 +42,30 @@ public class Reservation  {
 		this.dateDeparture = dateDeparture;
 		this.car = car;
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
-	
+
 	@NotNull
 	private LocalDateTime dateArrival;
-	
+
 	@NotNull
 	private LocalDateTime dateDeparture;
-	
+
 	@ManyToOne
-    @JoinColumn(name="car_id", nullable=false)
+	@JoinColumn(name = "car_id", nullable = false)
 	private Car car;
-	
+
 	@Enumerated(value = EnumType.STRING)
 	private ReservationState state = ReservationState.CREATED;
-	
-    @Column(name = "price", precision = 5, scale = 2, nullable = true)
-    private BigDecimal price;
+
+	@Column(name = "price", precision = 5, scale = 2, nullable = true)
+	private BigDecimal price;
 
 	@Override
 	public int hashCode() {
@@ -91,8 +91,5 @@ public class Reservation  {
 			return false;
 		return true;
 	}
-    
-    
-	
-	
+
 }

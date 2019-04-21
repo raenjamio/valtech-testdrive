@@ -1,5 +1,7 @@
 package com.raenjamio.valtech.testdrive.api.controller.v1;
 
+import java.util.concurrent.ExecutionException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -21,25 +23,42 @@ import com.raenjamio.valtech.testdrive.api.v1.service.query.ReservationQueryServ
 import com.raenjamio.valtech.testdrive.exceptions.BadRequestAlertException;
 
 import lombok.extern.slf4j.Slf4j;
-
+/**
+ * Punto de entrada de las reservas de la aplicacion
+ * @author raenjamio
+ *
+ */
 @Slf4j
 @RestController
-//RequestMapping(ReservationController.BASE_URL)
 public class ReservationController {
 	
 	public static final String BASE_URL = "/api/v1/reservations";
 	
 	private final ReservationQueryService reservationQueryService;
+	
 	private final ReservationService reservationService;
 	
 	
+	/**
+	 * Instantiates a new reservation controller.
+	 *
+	 * @param reservationQueryService the reservation query service
+	 * @param reservationService the reservation service
+	 */
 	public ReservationController(ReservationQueryService reservationQueryService,
 			ReservationService reservationService) {
 		super();
 		this.reservationQueryService = reservationQueryService;
 		this.reservationService = reservationService;
 	}
-
+	
+	/**
+	 * Gets the all.
+	 *
+	 * @param criteria the criteria
+	 * @param pageable the pageable
+	 * @return the all
+	 */
 	@GetMapping(ReservationController.BASE_URL)
 	@ResponseStatus(HttpStatus.OK)
 	public PageReservation getAll(ReservationCriteria criteria, Pageable pageable) {
@@ -48,6 +67,12 @@ public class ReservationController {
 		return new PageReservation(page);
 	}
 	
+	/**
+	 * Gets the reservation.
+	 *
+	 * @param id the id
+	 * @return the reservation
+	 */
 	@GetMapping(ReservationController.BASE_URL + "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ReservationDTO getReservation(@PathVariable Long id){
@@ -55,6 +80,11 @@ public class ReservationController {
         return reservationService.findById(id);
     }
 	
+	/**
+	 * Delete.
+	 *
+	 * @param id the id
+	 */
 	@DeleteMapping( ReservationController.BASE_URL + "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@PathVariable Long id) {
@@ -62,6 +92,13 @@ public class ReservationController {
 		reservationService.deleteById(id);
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param id the id
+	 * @param reservationDTO the reservation DTO
+	 * @return the reservation DTO
+	 */
 	@PutMapping(ReservationController.BASE_URL + "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ReservationDTO update(@PathVariable Long id, @RequestBody ReservationDTO reservationDTO) {
@@ -72,6 +109,13 @@ public class ReservationController {
 		return reservationService.saveByDTO(id, reservationDTO);
 	}
 
+	/**
+	 * Patch.
+	 *
+	 * @param id the id
+	 * @param reservationDTO the reservation DTO
+	 * @return the reservation DTO
+	 */
 	@PatchMapping(ReservationController.BASE_URL + "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ReservationDTO patch(@PathVariable Long id, @RequestBody ReservationDTO reservationDTO) {
@@ -79,6 +123,15 @@ public class ReservationController {
 		return reservationService.patch(id, reservationDTO);
 	}
 	
+	/**
+	 * Reservation car.
+	 *
+	 * @param idCar the id car
+	 * @param reservationDTO the reservation DTO
+	 * @return the reservation DTO
+	 * @throws ExecutionException 
+	 * @throws InterruptedException 
+	 */
 	@PostMapping(CarController.BASE_URL + "/{idCar}/reservations")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ReservationDTO reservationCar(@PathVariable Long idCar, @RequestBody ReservationDTO reservationDTO) {
@@ -88,6 +141,12 @@ public class ReservationController {
 		
 	}
 	
+	/**
+	 * Reservation car 2.
+	 *
+	 * @param reservationDTO the reservation DTO
+	 * @return the reservation DTO
+	 */
 	@PostMapping(ReservationController.BASE_URL)
 	@ResponseStatus(HttpStatus.CREATED)
 	public ReservationDTO reservationCar2(@RequestBody ReservationDTO reservationDTO) {

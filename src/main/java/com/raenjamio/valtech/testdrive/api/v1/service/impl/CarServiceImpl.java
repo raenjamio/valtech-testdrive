@@ -3,6 +3,7 @@ package com.raenjamio.valtech.testdrive.api.v1.service.impl;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.raenjamio.valtech.testdrive.api.v1.domain.Car;
@@ -11,32 +12,42 @@ import com.raenjamio.valtech.testdrive.api.v1.model.car.CarDTO;
 import com.raenjamio.valtech.testdrive.api.v1.repository.CarRepository;
 import com.raenjamio.valtech.testdrive.api.v1.service.CarService;
 import com.raenjamio.valtech.testdrive.exceptions.NotFoundException;
+import com.raenjamio.valtech.testdrive.util.Messages;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 
+ * @author raenjamio
+ *
+ */
 @Slf4j
 @Service
 public class CarServiceImpl implements CarService {
 
+
 	private final CarMapper carMapper;
 	private final CarRepository carRepository;
+	private final Messages messages;
 
-	public CarServiceImpl(CarMapper carMapper, CarRepository carRepository) {
+	public CarServiceImpl(CarMapper carMapper, CarRepository carRepository, Messages messages) {
 		super();
 		this.carMapper = carMapper;
 		this.carRepository = carRepository;
+		this.messages = messages;
 	}
 
 	@Override
 	public CarDTO findById(Long id) {
 		log.debug("@findById id:" + id);
 		return carRepository.findById(id).map(x -> carMapper.toDto(x)).map(carDTO -> {
-			// set API URL
-			// customerDTO.setCustomerUrl(getCustomerUrl(id));
 			return carDTO;
 		}).orElseThrow(NotFoundException::new);
 	}
 
+	/**
+	 * Crear un auto nuevo
+	 */
 	@Override
 	public CarDTO createNew(CarDTO carDTO) {
 		log.debug("@createNew car: " + carDTO);
@@ -52,6 +63,9 @@ public class CarServiceImpl implements CarService {
 		return returnDto;
 	}
 
+	/**
+	 * guardar un auto que ya existe
+	 */
 	@Override
 	public CarDTO saveByDTO(Long id, CarDTO carDTO) {
 		log.debug("@saveByDTO car: " + carDTO);
@@ -61,16 +75,19 @@ public class CarServiceImpl implements CarService {
 		return saveAndReturnDTO(car);
 	}
 
+	/**
+	 * actualizar un atributo de un auto
+	 */
 	@Override
 	public CarDTO patch(Long id, CarDTO carDTO) {
 		log.debug("@patch car: " + carDTO);
 		log.debug("@patch id: " + id);
 		return carRepository.findById(id).map(car -> {
-			
+
 			if (carDTO.getBrand() != null) {
 				car.setBrand(carDTO.getBrand());
 			}
-			
+
 			if (carDTO.getDescription() != null) {
 				car.setDescription(carDTO.getDescription());
 			}
@@ -79,9 +96,12 @@ public class CarServiceImpl implements CarService {
 
 			return returnDto;
 
-		}).orElseThrow(NotFoundException::new);
+		}).orElseThrow(() -> new NotFoundException(messages.get("car.notexist", id.toString())));
 	}
 
+	/**
+	 * buscar todos los autos
+	 */
 	@Override
 	public Set<CarDTO> findAll() {
 		log.debug("@getAll");
@@ -94,6 +114,9 @@ public class CarServiceImpl implements CarService {
 		return null;
 	}
 
+	/**
+	 * eliminar un auto
+	 */
 	@Override
 	public void delete(CarDTO carDTO) {
 		log.debug("@delete {}", carDTO);

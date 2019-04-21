@@ -52,7 +52,7 @@ public class ReservationServiceImplTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        reservationService = new ReservationServiceImpl(reservationMapper, reservationRepository, createReservation);
+        reservationService = new ReservationServiceImpl(reservationMapper, reservationRepository, createReservation, null);
     }
 
     @Test

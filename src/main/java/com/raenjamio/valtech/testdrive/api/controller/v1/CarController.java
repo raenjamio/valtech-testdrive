@@ -22,6 +22,11 @@ import com.raenjamio.valtech.testdrive.api.v1.service.query.CarQueryService;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Punto de entrada de la aplicacion para guardar autos
+ * @author raenjamio
+ *
+ */
 @Slf4j
 @RestController
 @RequestMapping(CarController.BASE_URL)
@@ -30,16 +35,30 @@ public class CarController {
 	public static final String BASE_URL = "/api/v1/cars";
 	
 	private final CarQueryService carQueryService;
+	
 	private final CarService carService;
 	
 	
 	
+	/**
+	 * Instantiates a new car controller.
+	 *
+	 * @param carQueryService the car query service
+	 * @param carService the car service
+	 */
 	public CarController(CarQueryService carQueryService, CarService carService) {
 		super();
 		this.carQueryService = carQueryService;
 		this.carService = carService;
 	}
 	
+	/**
+	 * Gets the all.
+	 *
+	 * @param criteria the criteria
+	 * @param pageable the pageable
+	 * @return the all
+	 */
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public PageCar getAll(CarCriteria criteria, Pageable pageable) {
@@ -48,6 +67,11 @@ public class CarController {
 		return new PageCar(page);
 	}
 	
+	/**
+	 * Delete.
+	 *
+	 * @param id the id
+	 */
 	@DeleteMapping({ "/{id}" })
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@PathVariable Long id) {
@@ -55,6 +79,13 @@ public class CarController {
 		carService.deleteById(id);
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param id the id
+	 * @param carDTO the car DTO
+	 * @return the car DTO
+	 */
 	@PutMapping({ "/{id}" })
 	@ResponseStatus(HttpStatus.OK)
 	public CarDTO update(@PathVariable Long id, @RequestBody CarDTO carDTO) {
@@ -62,6 +93,13 @@ public class CarController {
 		return carService.saveByDTO(id, carDTO);
 	}
 
+	/**
+	 * Patch.
+	 *
+	 * @param id the id
+	 * @param carDTO the car DTO
+	 * @return the car DTO
+	 */
 	@PatchMapping({ "/{id}" })
 	@ResponseStatus(HttpStatus.OK)
 	public CarDTO patch(@PathVariable Long id, @RequestBody CarDTO carDTO) {
@@ -69,6 +107,12 @@ public class CarController {
 		return carService.patch(id, carDTO);
 	}
 	
+	/**
+	 * Creates the new.
+	 *
+	 * @param carDTO the car DTO
+	 * @return the car DTO
+	 */
 	@PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CarDTO createNew(@RequestBody CarDTO carDTO){
@@ -76,6 +120,12 @@ public class CarController {
         return carService.createNew(carDTO);
     }
 	
+	/**
+	 * Gets the car.
+	 *
+	 * @param id the id
+	 * @return the car
+	 */
 	@GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public CarDTO getCar(@PathVariable Long id){

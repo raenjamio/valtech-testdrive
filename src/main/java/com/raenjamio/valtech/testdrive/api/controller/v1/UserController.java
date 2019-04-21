@@ -22,6 +22,12 @@ import com.raenjamio.valtech.testdrive.api.v1.service.query.UserQueryService;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Punto de entrada para crear usuario, aunque en el ejercicio no se pidio 
+ * se agrego
+ * @author raenjamio
+ *
+ */
 @Slf4j
 @RestController
 @RequestMapping(UserController.BASE_URL)
@@ -33,12 +39,25 @@ public class UserController {
 	private final UserService userService;
 	
 	
+	/**
+	 * Instantiates a new user controller.
+	 *
+	 * @param userQueryService the user query service
+	 * @param userService the user service
+	 */
 	public UserController(UserQueryService userQueryService, UserService userService) {
 		super();
 		this.userQueryService = userQueryService;
 		this.userService = userService;
 	}
 	
+	/**
+	 * Gets the all.
+	 *
+	 * @param criteria the criteria
+	 * @param pageable the pageable
+	 * @return the all
+	 */
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public PageUser getAll(UserCriteria criteria, Pageable pageable) {
@@ -47,6 +66,11 @@ public class UserController {
 		return new PageUser(page);
 	}
 	
+	/**
+	 * Delete.
+	 *
+	 * @param id the id
+	 */
 	@DeleteMapping({ "/{id}" })
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@PathVariable Long id) {
@@ -54,6 +78,13 @@ public class UserController {
 		userService.deleteById(id);
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param id the id
+	 * @param UserDTO the user DTO
+	 * @return the user DTO
+	 */
 	@PutMapping({ "/{id}" })
 	@ResponseStatus(HttpStatus.OK)
 	public UserDTO update(@PathVariable Long id, @RequestBody UserDTO UserDTO) {
@@ -61,6 +92,13 @@ public class UserController {
 		return userService.saveByDTO(id, UserDTO);
 	}
 
+	/**
+	 * Patch.
+	 *
+	 * @param id the id
+	 * @param UserDTO the user DTO
+	 * @return the user DTO
+	 */
 	@PatchMapping({ "/{id}" })
 	@ResponseStatus(HttpStatus.OK)
 	public UserDTO patch(@PathVariable Long id, @RequestBody UserDTO UserDTO) {
@@ -68,6 +106,12 @@ public class UserController {
 		return userService.patch(id, UserDTO);
 	}
 	
+	/**
+	 * Creates the new.
+	 *
+	 * @param userDTO the user DTO
+	 * @return the user DTO
+	 */
 	@PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDTO createNew(@RequestBody UserDTO userDTO){
@@ -75,6 +119,12 @@ public class UserController {
         return userService.createNew(userDTO);
     }
 	
+	/**
+	 * Gets the user.
+	 *
+	 * @param id the id
+	 * @return the user
+	 */
 	@GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public UserDTO getUser(@PathVariable Long id){

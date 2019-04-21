@@ -12,9 +12,14 @@ import com.raenjamio.valtech.testdrive.api.v1.model.available.PageAvailable;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Punto de entrada para ver la disponibilidad de un auto
+ * Solo se encarga de eso
+ * @author raenjamio
+ *
+ */
 @Slf4j
 @RestController
-//RequestMapping(ReservationController.BASE_URL)
 public class AvailableController {
 
 	public static final String BASE_URL = "/api/v1/available";
@@ -26,6 +31,13 @@ public class AvailableController {
 		this.availavilityUseCase = availavilityUseCase;
 	}
 
+	/**
+	 *  
+	 * @param idCar es requerido
+	 * @param dateStart no es requerida por default toma la fecha del dia
+	 * @param dateEnd no es requerida por default toma 3 meses desde dateStart
+	 * @return
+	 */
 	@GetMapping(CarController.BASE_URL + "/{idCar}/available")
 	@ResponseStatus(HttpStatus.OK)
 	public PageAvailable getAll(@PathVariable Long idCar,
