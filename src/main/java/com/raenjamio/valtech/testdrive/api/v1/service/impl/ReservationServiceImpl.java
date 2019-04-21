@@ -82,7 +82,7 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @throws InterruptedException 
 	 */
 	
-	//@Transactional
+	@Transactional
 	public ReservationDTO createNew(Long idCar, ReservationDTO reservationDTO) {
 		log.debug("@createNew reservation: " + reservationDTO);
 		reservationDTO.setCarId(idCar);
@@ -94,6 +94,7 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @param reservationDTO
 	 * @return
 	 */
+	@Transactional
 	public ReservationDTO createNew(ReservationDTO reservationDTO) {
 		log.debug("@createNew reservation: " + reservationDTO);
 
