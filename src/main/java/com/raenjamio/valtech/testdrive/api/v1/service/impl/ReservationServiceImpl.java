@@ -83,7 +83,7 @@ public class ReservationServiceImpl implements ReservationService {
 	 */
 	
 	//@Transactional
-	public synchronized ReservationDTO createNew(Long idCar, ReservationDTO reservationDTO) {
+	public ReservationDTO createNew(Long idCar, ReservationDTO reservationDTO) {
 		log.debug("@createNew reservation: " + reservationDTO);
 		reservationDTO.setCarId(idCar);
 		
@@ -94,7 +94,7 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @param reservationDTO
 	 * @return
 	 */
-	public synchronized ReservationDTO createNew(ReservationDTO reservationDTO) {
+	public ReservationDTO createNew(ReservationDTO reservationDTO) {
 		log.debug("@createNew reservation: " + reservationDTO);
 
 		return saveAndReturnDTO(reservationMapper.toEntity(createReservation.create(reservationDTO)));
