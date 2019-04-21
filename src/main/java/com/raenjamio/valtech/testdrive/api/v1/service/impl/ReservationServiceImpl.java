@@ -22,6 +22,7 @@ import com.raenjamio.valtech.testdrive.api.v1.repository.ReservationRepository;
 import com.raenjamio.valtech.testdrive.api.v1.service.ReservationService;
 import com.raenjamio.valtech.testdrive.exceptions.NotFoundException;
 import com.raenjamio.valtech.testdrive.util.Messages;
+import javax.transaction.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
 
