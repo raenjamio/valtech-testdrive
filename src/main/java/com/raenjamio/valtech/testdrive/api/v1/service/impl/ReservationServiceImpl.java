@@ -22,7 +22,8 @@ import com.raenjamio.valtech.testdrive.api.v1.repository.ReservationRepository;
 import com.raenjamio.valtech.testdrive.api.v1.service.ReservationService;
 import com.raenjamio.valtech.testdrive.exceptions.NotFoundException;
 import com.raenjamio.valtech.testdrive.util.Messages;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -83,7 +84,7 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @throws InterruptedException 
 	 */
 	
-	@Transactional
+	@Transactional(isolation = Isolation.SERIALIZABLE)
 	public synchronized ReservationDTO createNew(Long idCar, ReservationDTO reservationDTO) {
 		log.debug("@createNew reservation: " + reservationDTO);
 		reservationDTO.setCarId(idCar);
