@@ -53,7 +53,7 @@ Una vez clonado ir a la carpeta test-drive y desde la consola
 - En la carpeta  carpeta test-drive:
     docker-compose up
     
-    ![docker](./images/dockers.png)
+ ![docker](./images/dockers.png)
 
 # Levantar Grafana y prometheus:
 - En la carpeta src/main/resources
@@ -63,33 +63,38 @@ Una vez clonado ir a la carpeta test-drive y desde la consola
 # Tests
 - Conexión con Travis y codecov	 que ejecuta los tests y se puede ver en el Badge, Cantidad de tests:
 
+![test](./images/travis.png)
 
+![test1](./images/testjunit.png)
 
-
-
+![test1](./images/testcoverage.png)
 
 # Test de concurrencia jmeter:
 
     GET a /api/v1/cars/1/available : 10000 Request cada 1 segundo, sin errores.
 
 
+![concurrencia](./images/concurrencia10000-1.png)
 
-
-
-
+![concurrencia1](./images/concurrencia10000-2.png)
 
 # Concurrencia para hacer reservas de autos:
 4000 request cada 1 segundo: hubo 3999 errores 400 por la excepción que se produce al validar si la reserva existe
 
+![concurrencia2](./images/concurrencia4000-1.png)
 
+![concurrencia2](./images/concurrencia4000-2.png)
 
 A partir de los 5000 request empieza a haber problemas de infraestructura por concurrencia. Habría que aumentar la cantidad máxima de hilos del pool de la base de datos, poner mas memoria ram etc.
 
 # Monitorización
 - Prometheus y Grafana
 
+![grafana](./images/grafana.png)
+
 user y pass de Grafana (admin, admin)
 Dashboard id = 4701
 
 
+- Para mas informacion ver documento Evidencias test-drive.docx
 
