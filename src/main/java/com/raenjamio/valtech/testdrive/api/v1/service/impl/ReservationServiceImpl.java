@@ -82,8 +82,8 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @throws InterruptedException 
 	 */
 	
-	@Transactional
-	public ReservationDTO createNew(Long idCar, ReservationDTO reservationDTO) {
+	//@Transactional
+	public synchronized ReservationDTO createNew(Long idCar, ReservationDTO reservationDTO) {
 		log.debug("@createNew reservation: " + reservationDTO);
 		reservationDTO.setCarId(idCar);
 		
@@ -94,8 +94,8 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @param reservationDTO
 	 * @return
 	 */
-	@Transactional
-	public ReservationDTO createNew(ReservationDTO reservationDTO) {
+	//@Transactional
+	public synchronized ReservationDTO createNew(ReservationDTO reservationDTO) {
 		log.debug("@createNew reservation: " + reservationDTO);
 
 		return saveAndReturnDTO(reservationMapper.toEntity(createReservation.create(reservationDTO)));
