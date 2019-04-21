@@ -67,7 +67,7 @@ Una vez clonado ir a la carpeta test-drive y desde la consola
 
 ![test1](./images/testjunit.png)
 
-![test1](./images/testcoverage.png)
+![test2](./images/testcoverage.png)
 
 # Test de concurrencia jmeter:
 
