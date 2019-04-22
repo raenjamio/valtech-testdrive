@@ -78,6 +78,7 @@ public class CreateReservationTest {
 		ReflectionTestUtils.setField(createReservation, "maxDayReservation", 1);
 		ReflectionTestUtils.setField(createReservation, "minWeekReservation", -1);
 		ReflectionTestUtils.setField(createReservation, "maxMonthReservation", -1);
+		ReflectionTestUtils.setField(createReservation, "maxDayReservation", 1);
 	}
 
 	/**

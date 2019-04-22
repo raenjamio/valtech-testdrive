@@ -15,7 +15,7 @@ import lombok.Data;
 public class LocalDateArrival {
 	
 
-	private static final long DAY_RESERVATION_MAX = 1;
+	public static final int DAY_RESERVATION_MAX = 1;
 	private static final int HOUR_ARRIVAL = 10;
 	private static final int MINUTE_ARRIVAL = 0;
 	

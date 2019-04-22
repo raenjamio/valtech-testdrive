@@ -51,6 +51,7 @@ Una vez clonado ir a la carpeta test-drive y desde la consola
 
 # Levantar la aplicación con docker (creo una instancia de la aplicación y una de BD MySQL):
 - En la carpeta  carpeta test-drive:
+    mvn clean install (para generar la imagen)
     docker-compose up
     
  ![docker](./images/dockers.png)

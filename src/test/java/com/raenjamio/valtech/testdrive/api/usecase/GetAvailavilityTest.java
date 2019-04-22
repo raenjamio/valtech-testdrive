@@ -72,6 +72,7 @@ public class GetAvailavilityTest {
 		car = CarTest.builCarDTOTest(1L);
 
 		ReflectionTestUtils.setField(getAvailavility, "hourDeparture", 18);
+		ReflectionTestUtils.setField(getAvailavility, "monthsDefault", 3);
 	}
 
 	/**
@@ -137,6 +138,7 @@ public class GetAvailavilityTest {
 		when(mockCar.getReservations()).thenReturn(reservations);
 		when(reservationInUse.getState()).thenReturn(ReservationState.CREATED);
 		when(reservationInUse.getDateDeparture()).thenReturn(DATE_START.plusDays(10));
+		when(reservationInUse.getDateArrival()).thenReturn(DATE_START.plusDays(11));
 
 		when(carService.findById(anyLong())).thenReturn(mockCar);
 

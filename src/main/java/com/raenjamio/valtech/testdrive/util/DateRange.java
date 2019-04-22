@@ -7,6 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
+import lombok.Data;
+
+@Data
 public class DateRange implements Iterable<LocalDate> {
 
 	  private final LocalDate startDate;

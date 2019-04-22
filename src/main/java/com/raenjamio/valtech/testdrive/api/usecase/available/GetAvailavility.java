@@ -1,7 +1,6 @@
 package com.raenjamio.valtech.testdrive.api.usecase.available;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
@@ -15,7 +14,6 @@ import com.raenjamio.valtech.testdrive.api.v1.domain.ReservationState;
 import com.raenjamio.valtech.testdrive.api.v1.model.available.AvailableDTO;
 import com.raenjamio.valtech.testdrive.api.v1.model.available.PageAvailable;
 import com.raenjamio.valtech.testdrive.api.v1.model.car.CarDTO;
-import com.raenjamio.valtech.testdrive.api.v1.model.reservation.ReservationDTO;
 import com.raenjamio.valtech.testdrive.api.v1.service.CarService;
 import com.raenjamio.valtech.testdrive.exceptions.BadRequestAlertException;
 import com.raenjamio.valtech.testdrive.util.DateRange;
@@ -38,6 +36,9 @@ public class GetAvailavility {
 
 	@Value("${reservation.hourDeparture}")
 	private int hourDeparture;
+	
+	@Value("${availavility.months.default}")
+	private int monthsDefault;
 
 	public GetAvailavility(CarService carService) {
 		super();
@@ -63,7 +64,7 @@ public class GetAvailavility {
 		if (dateEnd != null) {
 			endDate = dateTimeFormat.parse(dateEnd, LocalDate::from);
 		} else {
-			endDate = startDate.plusMonths(3);
+			endDate = startDate.plusMonths(monthsDefault);
 		}
 
 		if (!startDate.isBefore(endDate)) {
@@ -73,29 +74,34 @@ public class GetAvailavility {
 
 		CarDTO car = carService.findById(idCar);
 
-		Set<LocalDate> datesReserved = car.getReservations().stream()
+		
+		Set<DateRange> datesReserved = car.getReservations().stream()
 				.filter(reservation -> ReservationState.CREATED.equals(reservation.getState()))
-				.map(ReservationDTO::getDateDeparture).map(LocalDateTime::toLocalDate).collect(Collectors.toSet());
-
+				.map( x -> new DateRange(x.getDateDeparture().toLocalDate() , x.getDateArrival().toLocalDate())).collect(Collectors.toSet());
+				
 		DateRange dateRange = new DateRange(startDate, endDate);
-		/*
-		 * dateRange.stream().filter(x ->
-		 * !datesReserved.contains(x)).collect(Collectors.toList())
-		 * .forEach(System.out::println);
-		 */
 
 		List<AvailableDTO> availabilities = buildAvailabilities(dateRange, car.getId(), datesReserved);
 
 		return new PageAvailable(availabilities);
 	}
-
-	private List<AvailableDTO> buildAvailabilities(DateRange dateRange, Long carId, Set<LocalDate> datesReserved) {
-		// Stream.iterate(new AvailableDTO(), d ->
-		// d.se).limit(ChronoUnit.DAYS.between(startDate, endDate) + 1);
-
-		return dateRange.stream().filter(x -> !datesReserved.contains(x))
+	
+	private List<AvailableDTO> buildAvailabilities(DateRange dateRange, Long carId, Set<DateRange> datesReservedRange) {
+				
+		return dateRange.stream()
+				.filter(x -> !datesReservedRange.stream().anyMatch(reserved -> inRangeReserved(reserved, x)))
 				.map(dateDeparture -> new AvailableDTO(carId, dateDeparture, dateDeparture))
 				.collect(Collectors.toList());
+	}
+
+	/**
+	 * Verificamos si un fecha esta dentro de un periodo de fechas reservadas
+	 * @param reserved
+	 * @return
+	 */	
+	private boolean inRangeReserved(DateRange reserved, LocalDate date) {
+		return (date.isAfter(reserved.getStartDate())|| date.equals(reserved.getStartDate())) 
+				&& (date.isBefore(reserved.getEndDate()));
 	}
 
 }
